@@ -11,6 +11,8 @@ public class MoveController : MonoBehaviour
     [SerializeField] float MoveSpeed = 10.0f;
     [SerializeField] float Gravity = 10.0f;
 
+    [SerializeField] Transform CameraTransform;
+
     // Start is called before the first frame update
     void Start()
     {
