@@ -20,10 +20,10 @@ public class TPSCamera : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.Lerp(
-                transform.position,
-                Player.position,
-                Time.deltaTime * FollowSpeed
-            );
+            transform.position,
+            Player.position,
+            Time.deltaTime * FollowSpeed
+        );
 
         yaw += Input.GetAxis("Mouse X") * RotateSpeed * Time.deltaTime;
         pitch -= Input.GetAxis("Mouse Y") * RotateSpeed * Time.deltaTime;
