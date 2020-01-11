@@ -30,11 +30,10 @@ public class MoveController : MonoBehaviour
 
         if (characterController.isGrounded)
         {
-            MoveVector.x = moveX * MoveSpeed;
-            MoveVector.z = moveZ * MoveSpeed;
+            MoveVector = new Vector3(moveX * MoveSpeed, 0, moveZ * MoveSpeed);
         }
 
-        if(moveX != 0 || moveZ != 0)
+        if (moveX != 0 || moveZ != 0)
         {
             BodyTransform.localRotation = Quaternion.Slerp(
                 BodyTransform.localRotation,

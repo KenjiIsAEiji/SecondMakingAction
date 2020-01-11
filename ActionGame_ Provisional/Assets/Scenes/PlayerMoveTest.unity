@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -199,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200148775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.28, z: -3.87}
+  m_LocalPosition: {x: 0, y: 1.81, z: -4.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1419425360}
@@ -251,7 +251,12 @@ PrefabInstance:
     - target: {fileID: 2941446395283884526, guid: 3ad561726c7f71e4d953f15272bb62cd,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941446395283884526, guid: 3ad561726c7f71e4d953f15272bb62cd,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4331552584492974295, guid: 3ad561726c7f71e4d953f15272bb62cd,
         type: 3}
@@ -266,7 +271,7 @@ PrefabInstance:
     - target: {fileID: 4476221895493467554, guid: 3ad561726c7f71e4d953f15272bb62cd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.024
       objectReference: {fileID: 0}
     - target: {fileID: 4476221895493467554, guid: 3ad561726c7f71e4d953f15272bb62cd,
         type: 3}
@@ -521,7 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   Gravity: 10
-  turnSpeed: 20
+  turnSpeed: 10
   CameraTransform: {fileID: 200148778}
   BodyTransform: {fileID: 746733700}
 --- !u!143 &747859231
@@ -557,6 +562,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &922565362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4331552584492974295, guid: 3ad561726c7f71e4d953f15272bb62cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 290664654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &922565370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922565362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bd258a6e0d4804caa0ab8d27ffaf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 747859231}
 --- !u!1 &1419425359
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,4 +627,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 747859232}
   RotateSpeed: 35
-  FollowSpeed: 10
+  FollowSpeed: 15
