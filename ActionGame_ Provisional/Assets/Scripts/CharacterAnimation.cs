@@ -7,6 +7,9 @@ public class CharacterAnimation : MonoBehaviour
     Animator animator;
     [SerializeField] CharacterController characterController;
 
+    [SerializeField] Transform LeftHandTransform;
+    [SerializeField] Transform RightHandTransform;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,17 @@ public class CharacterAnimation : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand,1);
+        animator.SetIKPositionWeight(AvatarIKGoal.RightHand,1);
+
+        animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTransform.position);
+        animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTransform.rotation);
+
+        animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTransform.position);
+        animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTransform.rotation);
     }
 }
