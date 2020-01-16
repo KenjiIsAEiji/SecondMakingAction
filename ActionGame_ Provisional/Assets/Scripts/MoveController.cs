@@ -16,6 +16,8 @@ public class MoveController : MonoBehaviour
     [SerializeField] Transform CameraTransform;
     [SerializeField] Transform BodyTransform;
 
+    public bool Attacking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,9 @@ public class MoveController : MonoBehaviour
 
         MoveVector.y -= Gravity * Time.deltaTime;
 
-        characterController.Move(transform.TransformDirection(MoveVector * Time.deltaTime));
+        if(Attacking == false)
+        {
+            characterController.Move(transform.TransformDirection(MoveVector * Time.deltaTime));
+        }
     }
 }

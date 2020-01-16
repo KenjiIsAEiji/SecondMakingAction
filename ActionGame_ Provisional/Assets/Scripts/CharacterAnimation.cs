@@ -10,6 +10,8 @@ public class CharacterAnimation : MonoBehaviour
     [SerializeField] Transform LeftHandTransform;
     [SerializeField] Transform RightHandTransform;
 
+    [SerializeField] MoveController moveController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +40,22 @@ public class CharacterAnimation : MonoBehaviour
 
         animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTransform.position);
         animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTransform.rotation);
+    }
+
+    void Hit()
+    {
+        Debug.Log("Hit!!");
+    }
+    
+    void AttackEnter()
+    {
+        Debug.Log("Attack Start");
+        moveController.Attacking = true;
+    }
+
+    void AttackExit()
+    {
+        Debug.Log("Attack End");
+        moveController.Attacking = false;
     }
 }

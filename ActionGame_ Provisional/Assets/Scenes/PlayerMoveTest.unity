@@ -623,6 +623,7 @@ MonoBehaviour:
   turnSpeed: 10
   CameraTransform: {fileID: 200148778}
   BodyTransform: {fileID: 746733700}
+  Attacking: 0
 --- !u!143 &747859231
 CharacterController:
   m_ObjectHideFlags: 0
@@ -721,6 +722,7 @@ MonoBehaviour:
   characterController: {fileID: 747859231}
   LeftHandTransform: {fileID: 591592603}
   RightHandTransform: {fileID: 2083561161}
+  moveController: {fileID: 747859230}
 --- !u!1 &1377245332
 GameObject:
   m_ObjectHideFlags: 0
