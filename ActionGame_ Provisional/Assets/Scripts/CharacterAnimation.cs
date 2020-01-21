@@ -32,14 +32,14 @@ public class CharacterAnimation : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand,1);
-        animator.SetIKPositionWeight(AvatarIKGoal.RightHand,1);
+        //animator.SetIKPositionWeight(AvatarIKGoal.LeftHand,1);
+        //animator.SetIKPositionWeight(AvatarIKGoal.RightHand,1);
 
-        animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTransform.position);
-        animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTransform.rotation);
+        //animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTransform.position);
+        //animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTransform.rotation);
 
-        animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTransform.position);
-        animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTransform.rotation);
+        //animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTransform.position);
+        //animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTransform.rotation);
     }
 
     void Hit()

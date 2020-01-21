@@ -39,7 +39,7 @@ AnimatorStateMachine:
     m_Position: {x: 630, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4989553750296363935}
-    m_Position: {x: 630, y: 350, z: 0}
+    m_Position: {x: 630, y: 360, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -67,9 +67,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.048523366
-  m_TransitionOffset: 0.354021
-  m_ExitTime: 0.6280789
+  m_TransitionDuration: 0.131082
+  m_TransitionOffset: 0.29807723
+  m_ExitTime: 0.89798504
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 1
@@ -128,25 +128,26 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2Hand-Sword-Attack6
-  m_Speed: 1
+  m_Name: Sword-Attack3
+  m_Speed: 1.27
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1022119761553121039}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 1
+  m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c9cdccfb9d6cfef4d9992105a94b5d86, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 78decc688610dea4790a08f65aa8f50c,
+    type: 3}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: Blend
   m_MirrorParameter: 
-  m_CycleOffsetParameter: 
+  m_CycleOffsetParameter: Blend
   m_TimeParameter: 
 --- !u!1101 &-3306925652544716049
 AnimatorStateTransition:
@@ -211,7 +212,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
-  m_ExitTime: 0.7916667
+  m_ExitTime: 0.9565866
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -254,7 +255,7 @@ AnimatorController:
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 0
-    m_IKPass: 1
+    m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
 --- !u!206 &2180751510682816638
@@ -266,7 +267,8 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 8370b4128ccb08c4a8944d3f0d66cebc, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: 2001af816edb56647aaac3b3c406e469,
+      type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -274,10 +276,11 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 0000872662c8fb241bf2ab6cc00dd461, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: 7f117042f8ad1c74bacb704841f289a4,
+      type: 3}
     m_Threshold: 9
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1.5
+    m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -295,8 +298,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2Hand-Sword-Attack4
-  m_Speed: 0.5
+  m_Name: Sword-Attack2
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2457566913336594896}
@@ -310,7 +313,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cdd2643e8053d5b419629acf98510a71, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 4a87c35f85201ff47a9c178de02c60bc,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -323,8 +327,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2Hand-Sword-Attack1
-  m_Speed: 1
+  m_Name: Sword-Attack1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6323679872861460630}
@@ -338,7 +342,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dce280ced5e006c4cb0eb0fab2f51b75, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 0c9b6d202eaf56d4abd88b7ba80c8bec,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
