@@ -21,25 +21,20 @@ public class CharacterAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator = GetComponent<Animator>();
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
+        {
+            moveController.Attacking = false;
+        }
+        else
+        {
+            moveController.Attacking = true;
+        }
 
         animator.SetFloat("Speed", characterController.velocity.magnitude);
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
         }
-    }
-
-    private void OnAnimatorIK(int layerIndex)
-    {
-        //animator.SetIKPositionWeight(AvatarIKGoal.LeftHand,1);
-        //animator.SetIKPositionWeight(AvatarIKGoal.RightHand,1);
-
-        //animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTransform.position);
-        //animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTransform.rotation);
-
-        //animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTransform.position);
-        //animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTransform.rotation);
     }
 
     void Hit()
@@ -50,12 +45,10 @@ public class CharacterAnimation : MonoBehaviour
     void AttackEnter()
     {
         Debug.Log("Attack Start");
-        moveController.Attacking = true;
     }
 
     void AttackExit()
     {
         Debug.Log("Attack End");
-        moveController.Attacking = false;
     }
 }
