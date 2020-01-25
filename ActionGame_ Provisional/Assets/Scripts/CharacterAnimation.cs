@@ -34,21 +34,18 @@ public class CharacterAnimation : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
+            animator.SetInteger("AttackType", 0);
         }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            animator.SetTrigger("Attack");
+            animator.SetInteger("AttackType", 1);
+        }
+        
     }
 
     void Hit()
     {
         Debug.Log("Hit!!");
-    }
-    
-    void AttackEnter()
-    {
-        Debug.Log("Attack Start");
-    }
-
-    void AttackExit()
-    {
-        Debug.Log("Attack End");
     }
 }
