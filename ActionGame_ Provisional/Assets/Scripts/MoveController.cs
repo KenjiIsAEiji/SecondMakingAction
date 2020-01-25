@@ -51,5 +51,9 @@ public class MoveController : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
             }
         }
+        else
+        {
+            characterController.Move(transform.TransformDirection(MoveVector * 0));
+        }
     }
 }

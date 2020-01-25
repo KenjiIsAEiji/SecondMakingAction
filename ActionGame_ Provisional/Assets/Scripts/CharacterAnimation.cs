@@ -24,22 +24,28 @@ public class CharacterAnimation : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
         {
             moveController.Attacking = false;
+            animator.SetFloat("Speed", characterController.velocity.magnitude);
         }
         else
         {
             moveController.Attacking = true;
+            animator.SetFloat("Speed", 0);
         }
-
-        animator.SetFloat("Speed", characterController.velocity.magnitude);
-        if (Input.GetMouseButtonDown(0))
+        
+        if (Input.GetMouseButtonDown(0) && characterController.velocity.magnitude > 0)
+        {
+            animator.SetTrigger("Attack");
+            animator.SetInteger("AttackType", 1);
+        }
+        else if(Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
             animator.SetInteger("AttackType", 0);
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if(Input.GetMouseButtonDown(1))
         {
             animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 1);
+            animator.SetInteger("AttackType", 2);
         }
         
     }
