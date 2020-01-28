@@ -7,9 +7,6 @@ public class CharacterAnimation : MonoBehaviour
     Animator animator;
     [SerializeField] CharacterController characterController;
 
-    [SerializeField] Transform LeftHandTransform;
-    [SerializeField] Transform RightHandTransform;
-
     [SerializeField] MoveController moveController;
 
     // Start is called before the first frame update

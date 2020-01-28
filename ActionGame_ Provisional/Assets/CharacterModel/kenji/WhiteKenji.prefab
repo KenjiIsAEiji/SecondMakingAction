@@ -1669,6 +1669,7 @@ GameObject:
   - component: {fileID: 1615577046369035609}
   - component: {fileID: 8522736649009752570}
   - component: {fileID: 7294519965629240721}
+  - component: {fileID: 4942267891324132367}
   m_Layer: 0
   m_Name: WhiteKenji
   m_TagString: Untagged
@@ -1732,7 +1733,7 @@ Animator:
   m_GameObject: {fileID: 4331552584492974295}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5a85c30622b03954ab13c074e23cf497, type: 2}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ca47fdc6b80b8b14bb934e35119e91d3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1952,6 +1953,22 @@ MonoBehaviour:
       m_RotationOrder: 4
     CurveXRangeDegree: 90
     CurveYRangeDegree: 10
+--- !u!114 &4942267891324132367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331552584492974295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bd258a6e0d4804caa0ab8d27ffaf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  LeftHandTransform: {fileID: 0}
+  RightHandTransform: {fileID: 0}
+  moveController: {fileID: 0}
 --- !u!1 &4332714168435043009
 GameObject:
   m_ObjectHideFlags: 0

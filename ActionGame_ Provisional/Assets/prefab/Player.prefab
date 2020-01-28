@@ -99,19 +99,7 @@ MonoBehaviour:
   turnSpeed: 10
   CameraTransform: {fileID: 0}
   BodyTransform: {fileID: 8829529647686953881}
---- !u!114 &4942267891324132367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685950915321960172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35bd258a6e0d4804caa0ab8d27ffaf2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 4942267890890951658}
+  Attacking: 0
 --- !u!1001 &4942267890677028411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,21 +107,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4942267890890951637}
     m_Modifications:
-    - target: {fileID: 2941446395283884526, guid: 3ad561726c7f71e4d953f15272bb62cd,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ca47fdc6b80b8b14bb934e35119e91d3, type: 2}
-    - target: {fileID: 2941446395283884526, guid: 3ad561726c7f71e4d953f15272bb62cd,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2941446395283884526, guid: 3ad561726c7f71e4d953f15272bb62cd,
-        type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4331552584492974295, guid: 3ad561726c7f71e4d953f15272bb62cd,
         type: 3}
       propertyPath: m_Name
@@ -194,14 +167,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4942267891324132367, guid: 3ad561726c7f71e4d953f15272bb62cd,
+        type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 4942267890890951658}
+    - target: {fileID: 4942267891324132367, guid: 3ad561726c7f71e4d953f15272bb62cd,
+        type: 3}
+      propertyPath: moveController
+      value: 
+      objectReference: {fileID: 4942267890890951659}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ad561726c7f71e4d953f15272bb62cd, type: 3}
---- !u!1 &8685950915321960172 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4331552584492974295, guid: 3ad561726c7f71e4d953f15272bb62cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 4942267890677028411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8829529647686953881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4476221895493467554, guid: 3ad561726c7f71e4d953f15272bb62cd,
