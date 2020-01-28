@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
-    public GameObject EnemyDelete = null;
-
+    public GameObject Enemy;
     [Header("敵のステータス")]
     [SerializeField]
     [Range(10, 1000)]
@@ -20,12 +19,16 @@ public class EnemyStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text EnemyText = EnemyDelete.GetComponent<Text>();
-
-        if (EnemyHealth <= 0)
+        if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("敵を倒しました");
-            EnemyText.text = ("敵を倒しました。");
+            EnemyHealth = EnemyHealth-5;
+            if (EnemyHealth <= 0)
+            {
+                Debug.Log("敵を倒しました");
+                Destroy(Enemy);
+            }
         }
+
+
     }
 }
