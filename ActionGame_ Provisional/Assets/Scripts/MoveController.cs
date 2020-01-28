@@ -16,6 +16,8 @@ public class MoveController : MonoBehaviour
     [SerializeField] Transform CameraTransform;
     [SerializeField] Transform BodyTransform;
 
+    public bool Attacking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,18 +35,25 @@ public class MoveController : MonoBehaviour
             MoveVector = new Vector3(moveX * MoveSpeed, 0, moveZ * MoveSpeed);
         }
 
-        if (moveX != 0 || moveZ != 0)
-        {
-            BodyTransform.localRotation = Quaternion.Slerp(
-                BodyTransform.localRotation,
-                Quaternion.LookRotation(new Vector3(moveX, 0, moveZ)),
-                turnSpeed * Time.deltaTime
-            );
-            transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
-        }
-
         MoveVector.y -= Gravity * Time.deltaTime;
 
-        characterController.Move(transform.TransformDirection(MoveVector * Time.deltaTime));
+        if(Attacking == false)
+        {
+            characterController.Move(transform.TransformDirection(MoveVector * Time.deltaTime));
+
+            if (moveX != 0 || moveZ != 0)
+            {
+                BodyTransform.localRotation = Quaternion.Slerp(
+                    BodyTransform.localRotation,
+                    Quaternion.LookRotation(new Vector3(moveX, 0, moveZ)),
+                    turnSpeed * Time.deltaTime
+                );
+                transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
+            }
+        }
+        else
+        {
+            characterController.Move(transform.TransformDirection(MoveVector * 0));
+        }
     }
 }
