@@ -9,10 +9,17 @@ public class CharacterAnimation : MonoBehaviour
 
     [SerializeField] MoveController moveController;
 
+    [Header("デバッグ用エフェクト")]
+    [SerializeField] GameObject testEffect;
+
+    [Header("剣のコライダー")]
+    [SerializeField] Collider swordCollider;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        swordCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -44,11 +51,19 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetTrigger("Attack");
             animator.SetInteger("AttackType", 2);
         }
-        
     }
 
-    void Hit()
+    void AttackEnter()
     {
-        Debug.Log("Hit!!");
+        Debug.Log("Attack Start");
+        testEffect.GetComponent<ParticleSystem>().Play();
+        swordCollider.enabled = true;
+    }
+
+    void AttackExit()
+    {
+        Debug.Log("Attack End");
+        testEffect.GetComponent<ParticleSystem>().Stop();
+        swordCollider.enabled = false;
     }
 }
