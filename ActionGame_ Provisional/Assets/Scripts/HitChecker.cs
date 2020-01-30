@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HitChecker : MonoBehaviour
 {
+    [Header("ヒットエフェクト")]
+    [SerializeField] GameObject effect;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,8 @@ public class HitChecker : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Hit!!");
+            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
+            Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
         }
     }
 }
