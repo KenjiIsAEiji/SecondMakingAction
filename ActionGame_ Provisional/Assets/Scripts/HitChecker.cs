@@ -26,6 +26,8 @@ public class HitChecker : MonoBehaviour
             Debug.Log("Hit!!");
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
             Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+
+            collision.gameObject.GetComponent<EnemyStatus>().Damage();
         }
     }
 }
