@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyStateController : MonoBehaviour
 {
+    NavMeshAgent EnemyAgent;
+    Transform PlayerTransform;
+
+    [Header("敵のHP")]
+    [SerializeField] int EnemyHealth = 100;
+
     enum EnemyState
     {
         Ready = 0,
@@ -19,6 +25,8 @@ public class EnemyStateController : MonoBehaviour
     void Start()
     {
         NowEnemyState = EnemyState.Move;
+        EnemyAgent = GetComponent<NavMeshAgent>();
+        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -29,15 +37,31 @@ public class EnemyStateController : MonoBehaviour
             case EnemyState.Ready:
                 
                 break;
+
             case EnemyState.Move:
+                EnemyAgent.destination = PlayerTransform.position;
                 
+                //遷移条件
+                if (EnemyHealth <= 0) NowEnemyState = EnemyState.Dead;
                 break;
+
             case EnemyState.Attack:
 
                 break;
+
             case EnemyState.Dead:
 
+                EnemyAgent.ResetPath(); //Agent停止
+                Debug.Log(gameObject.name + " is Dead");
                 break;
         }
+    }
+    /// <summary>
+    /// 敵のHPをダメージによって減らす
+    /// </summary>
+    /// <param name="damegeValue">減らすHP</param>
+    public void Damage(int damegeValue)
+    {
+        EnemyHealth -= damegeValue;
     }
 }

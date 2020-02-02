@@ -7,6 +7,10 @@ public class HitChecker : MonoBehaviour
     [Header("ヒットエフェクト")]
     [SerializeField] GameObject effect;
 
+    [Header("攻撃力")]
+    [Range(1, 100)]
+    [SerializeField] int AttackValue = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +30,9 @@ public class HitChecker : MonoBehaviour
             Debug.Log("Hit!!");
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
             Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
-
-            collision.gameObject.GetComponent<EnemyStatus>().Damage();
+            
+            // Hit時にダメージ処理
+            collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue);
         }
     }
 }
