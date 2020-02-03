@@ -51,11 +51,26 @@ public class EnemyStateController : MonoBehaviour
 
             case EnemyState.Dead:
 
-                EnemyAgent.ResetPath(); //Agent停止
+                //EnemyAgent.ResetPath(); //Agent停止
+
+                EnemyAgent.enabled = false;
+
                 Debug.Log(gameObject.name + " is Dead");
+                DeadAction();
+                Destroy(this.gameObject, 10.0f);
                 break;
         }
     }
+    /// <summary>
+    /// 倒れる時のエフェクトなどの呼び出し
+    /// </summary>
+    void DeadAction()
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.useGravity = true;
+        rigidbody.constraints = RigidbodyConstraints.None;
+    }
+
     /// <summary>
     /// 敵のHPをダメージによって減らす
     /// </summary>
