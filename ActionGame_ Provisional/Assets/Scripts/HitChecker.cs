@@ -23,16 +23,17 @@ public class HitChecker : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Hit!!");
-            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
-            Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
-            
+            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, Vector3.up);
+            Instantiate(effect, other.ClosestPoint(transform.position), effectSponeAngle);
+
             // Hit時にダメージ処理
-            collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue);
+            other.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue);
         }
     }
+    
 }

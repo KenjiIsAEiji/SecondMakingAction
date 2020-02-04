@@ -5,9 +5,10 @@ using UnityEngine;
 public class CharacterAnimation : MonoBehaviour
 {
     Animator animator;
-    [SerializeField] CharacterController characterController;
+    Rigidbody playerRigidbody;
+    PlayerController playerController;
 
-    [SerializeField] MoveController moveController;
+    [SerializeField] GameObject playerGameObject;
 
     [Header("デバッグ用エフェクト")]
     [SerializeField] GameObject testEffect;
@@ -18,7 +19,10 @@ public class CharacterAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerRigidbody = playerGameObject.GetComponent<Rigidbody>();
+        playerController = playerGameObject.GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+
         swordCollider.enabled = false;
     }
 
@@ -27,16 +31,16 @@ public class CharacterAnimation : MonoBehaviour
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
         {
-            moveController.Attacking = false;
-            animator.SetFloat("Speed", characterController.velocity.magnitude);
+            playerController.Attacking = false;
+            animator.SetFloat("Speed", playerRigidbody.velocity.magnitude);
         }
         else
         {
-            moveController.Attacking = true;
+            playerController.Attacking = true;
             animator.SetFloat("Speed", 0);
         }
         
-        if (Input.GetMouseButtonDown(0) && characterController.velocity.magnitude > 0)
+        if (Input.GetMouseButtonDown(0) && playerRigidbody.velocity.magnitude > 0.1f)
         {
             animator.SetTrigger("Attack");
             animator.SetInteger("AttackType", 1);
