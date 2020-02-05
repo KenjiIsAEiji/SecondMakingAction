@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99942506}
   m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: 0.096, y: -0.013, z: 1.04}
-  m_LocalScale: {x: 0.010969499, y: 0.028686559, z: 2.3602939}
+  m_LocalPosition: {x: 0.096, y: -0.013, z: 0.641}
+  m_LocalScale: {x: 0.010969499, y: 0.028686559, z: 1.4443583}
   m_Children:
   - {fileID: 1043739452}
   m_Father: {fileID: 5177536357841711171}
@@ -90,7 +90,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99942506}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043739451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 0.2, z: -0.019}
+  m_LocalPosition: {x: -0.3, y: 0.2, z: 0.034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 99942507}
@@ -774,8 +774,8 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -0.000000068426345, y: 0.000000018914767, z: 0.11531808}
-    m_Rotation: {x: 0.0012042994, y: 90.00098, z: -0.0014213267}
+    m_Position: {x: -0.0000021846206, y: -0.013303332, z: 0.013292785}
+    m_Rotation: {x: 0.001432922, y: 90.001144, z: -0.0016880448}
     m_Scale: {x: 1.0154002, y: 1.0779135, z: 5.198602}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -855,7 +855,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.0715944
+      value: 0.6396351
       mode: 0
       spread: 0
       speed:
@@ -4905,7 +4905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4942267890404445438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.66, z: 0}
+  m_LocalPosition: {x: 0, y: 0.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4942267890890951637}
@@ -4955,8 +4955,8 @@ Rigidbody:
   m_GameObject: {fileID: 4942267890890951656}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3
-  m_AngularDrag: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -4988,10 +4988,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbe732bd1e2de045886fec924d20209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 35
+  Speed: 10
   TurnSpeed: 10
+  moveMultiply: 10
   CameraTransform: {fileID: 0}
-  BodyTransform: {fileID: 8829529647686953881}
   Attacking: 0
 --- !u!1001 &4942267890677028411
 PrefabInstance:
@@ -5060,11 +5060,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4942267891324132367, guid: 3ad561726c7f71e4d953f15272bb62cd,
-        type: 3}
-      propertyPath: playerGameObject
-      value: 
-      objectReference: {fileID: 4942267890890951656}
     - target: {fileID: 4942267891324132367, guid: 3ad561726c7f71e4d953f15272bb62cd,
         type: 3}
       propertyPath: testEffect

@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
     [Header("- 移動速度・キャラクター回転速度 -")]
     [SerializeField] float Speed = 10.0f;
     [SerializeField] float TurnSpeed = 10.0f;
+    [SerializeField] float moveMultiply = 10.0f;
     
     [SerializeField] Transform CameraTransform;
-    [SerializeField] Transform BodyTransform;
 
     public bool Attacking = false;
 
@@ -34,23 +34,22 @@ public class PlayerController : MonoBehaviour
 
         if (!Attacking)
         {
-            playerRigidbody.AddForce(transform.TransformDirection(MoveVecter));
-
-            if (moveX != 0 || moveZ != 0)
+            Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
+            
+            if(MoveVecter.magnitude > 0)
             {
-                BodyTransform.localRotation = Quaternion.Slerp(
-                    BodyTransform.localRotation,
-                    Quaternion.LookRotation(new Vector3(moveX, 0, moveZ)),
-                    TurnSpeed * Time.deltaTime
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    Quaternion.LookRotation(camRotation * MoveVecter),
+                    TurnSpeed
                 );
-                transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
             }
+
+            playerRigidbody.AddForce(moveMultiply * ((camRotation * MoveVecter) - playerRigidbody.velocity));
         }
         else
         {
             playerRigidbody.AddForce(Vector3.zero);
         }
-
-        
     }
 }

@@ -8,8 +8,6 @@ public class CharacterAnimation : MonoBehaviour
     Rigidbody playerRigidbody;
     PlayerController playerController;
 
-    [SerializeField] GameObject playerGameObject;
-
     [Header("デバッグ用エフェクト")]
     [SerializeField] GameObject testEffect;
 
@@ -19,8 +17,8 @@ public class CharacterAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerRigidbody = playerGameObject.GetComponent<Rigidbody>();
-        playerController = playerGameObject.GetComponent<PlayerController>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
 
         swordCollider.enabled = false;
