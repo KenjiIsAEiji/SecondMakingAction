@@ -60,7 +60,9 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        if (Physics.Raycast(RayOrigin.position, -RayOrigin.up, RayRange))
+        IsGrounded = Physics.Raycast(RayOrigin.position, -RayOrigin.up, RayRange);
+
+        if (IsGrounded)
         {
             playerRigidbody.AddForce(moveMultiply * ((camRotation * MoveVecter) - playerRigidbody.velocity));
         }
