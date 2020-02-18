@@ -11,6 +11,8 @@ public class EnemyStateController : MonoBehaviour
     [Header("敵のHP")]
     [SerializeField] int EnemyHealth = 100;
 
+    [SerializeField] float nbStrength = 5.0f;
+
     enum EnemyState
     {
         Ready = 0,
@@ -61,6 +63,7 @@ public class EnemyStateController : MonoBehaviour
                 break;
         }
     }
+
     /// <summary>
     /// 倒れる時のエフェクトなどの呼び出し
     /// </summary>
@@ -69,14 +72,16 @@ public class EnemyStateController : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.useGravity = true;
         rigidbody.constraints = RigidbodyConstraints.None;
+        rigidbody.AddForce(-transform.forward * 10.0f * nbStrength);
     }
 
     /// <summary>
     /// 敵のHPをダメージによって減らす
     /// </summary>
     /// <param name="damegeValue">減らすHP</param>
-    public void Damage(int damegeValue)
+    public void Damage(int damegeValue, Vector3 hitDirection)
     {
         EnemyHealth -= damegeValue;
+        EnemyAgent.velocity = hitDirection * nbStrength;
     }
 }
