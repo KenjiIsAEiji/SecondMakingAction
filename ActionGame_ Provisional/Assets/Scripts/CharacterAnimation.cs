@@ -5,14 +5,23 @@ using UnityEngine;
 public class CharacterAnimation : MonoBehaviour
 {
     Animator animator;
-    [SerializeField] CharacterController characterController;
+    Rigidbody playerRigidbody;
+    PlayerController playerController;
 
-    [SerializeField] MoveController moveController;
+    [Header("デバッグ用エフェクト")]
+    [SerializeField] GameObject testEffect;
+
+    [Header("剣のコライダー")]
+    [SerializeField] Collider swordCollider;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+
+        swordCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -20,16 +29,16 @@ public class CharacterAnimation : MonoBehaviour
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
         {
-            moveController.Attacking = false;
-            animator.SetFloat("Speed", characterController.velocity.magnitude);
+            playerController.Attacking = false;
+            animator.SetFloat("Speed", playerRigidbody.velocity.magnitude);
         }
         else
         {
-            moveController.Attacking = true;
+            playerController.Attacking = true;
             animator.SetFloat("Speed", 0);
         }
         
-        if (Input.GetMouseButtonDown(0) && characterController.velocity.magnitude > 0)
+        if (Input.GetMouseButtonDown(0) && playerRigidbody.velocity.magnitude > 0.1f)
         {
             animator.SetTrigger("Attack");
             animator.SetInteger("AttackType", 1);
@@ -44,11 +53,19 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetTrigger("Attack");
             animator.SetInteger("AttackType", 2);
         }
-        
     }
 
-    void Hit()
+    void AttackEnter()
     {
-        Debug.Log("Hit!!");
+        Debug.Log("Attack Start");
+        testEffect.GetComponent<ParticleSystem>().Play();
+        swordCollider.enabled = true;
+    }
+
+    void AttackExit()
+    {
+        Debug.Log("Attack End");
+        testEffect.GetComponent<ParticleSystem>().Stop();
+        swordCollider.enabled = false;
     }
 }
