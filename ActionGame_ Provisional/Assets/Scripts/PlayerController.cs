@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
 
             MoveVecter = new Vector3(moveX * Speed, 0, moveZ * Speed);
         }
+        else
+        {
+            MoveVecter = Vector3.zero;
+        }
     }
 
     private void FixedUpdate()
