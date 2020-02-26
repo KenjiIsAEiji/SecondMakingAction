@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public class EnemyStateController : MonoBehaviour
 {
     NavMeshAgent EnemyAgent;
@@ -11,23 +13,29 @@ public class EnemyStateController : MonoBehaviour
     [Header("敵のHP")]
     [SerializeField] int EnemyHealth = 100;
 
-    [SerializeField] float nbStrength = 5.0f;
+    [Header("敵のヒットストップ設定")]
+    [SerializeField] float HSScale = 0.1f;
+    [SerializeField] float HSTime = 1f;
+
+    Animator EnemyAnimator;
 
     enum EnemyState
     {
         Ready = 0,
         Move = 1,
         Attack = 2,
-        Dead = 3
+        KickBack = 3,
+        Dead = 4
     }
 
-    EnemyState NowEnemyState;
+    [SerializeField] EnemyState NowEnemyState;
     
     // Start is called before the first frame update
     void Start()
     {
         NowEnemyState = EnemyState.Move;
         EnemyAgent = GetComponent<NavMeshAgent>();
+        EnemyAnimator = GetComponent<Animator>();
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -37,17 +45,29 @@ public class EnemyStateController : MonoBehaviour
         switch (NowEnemyState)
         {
             case EnemyState.Ready:
-                
+
                 break;
 
             case EnemyState.Move:
+                //ノックバックコルーチンを停止
+                StopCoroutine(HitStopEffect());
+
                 EnemyAgent.destination = PlayerTransform.position;
-                
+
+                EnemyAnimator.SetFloat("MoveSpeed", EnemyAgent.velocity.magnitude);
+
                 //遷移条件
                 if (EnemyHealth <= 0) NowEnemyState = EnemyState.Dead;
                 break;
 
             case EnemyState.Attack:
+
+                break;
+
+            case EnemyState.KickBack:
+                EnemyAgent.ResetPath();
+                EnemyAgent.velocity = Vector3.zero;
+
 
                 break;
 
@@ -58,30 +78,48 @@ public class EnemyStateController : MonoBehaviour
                 EnemyAgent.enabled = false;
 
                 Debug.Log(gameObject.name + " is Dead");
-                DeadAction();
+                //DeadAction();
                 Destroy(this.gameObject, 10.0f);
                 break;
         }
+
+        EnemyAnimator.SetInteger("EnemyState", (int)NowEnemyState);
     }
 
     /// <summary>
     /// 倒れる時のエフェクトなどの呼び出し
     /// </summary>
-    void DeadAction()
-    {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.useGravity = true;
-        rigidbody.constraints = RigidbodyConstraints.None;
-        rigidbody.AddForce(-transform.forward * 10.0f * nbStrength);
-    }
+    //void DeadAction()
+    //{
+    //    Rigidbody rigidbody = GetComponent<Rigidbody>();
+    //    rigidbody.useGravity = true;
+    //    rigidbody.constraints = RigidbodyConstraints.None;
+    //    rigidbody.AddForce(-transform.forward * 10.0f * HSScale);
+    //}
 
     /// <summary>
     /// 敵のHPをダメージによって減らす
     /// </summary>
     /// <param name="damegeValue">減らすHP</param>
-    public void Damage(int damegeValue, Vector3 hitDirection)
+    public void Damage(int damegeValue)
     {
-        EnemyHealth -= damegeValue;
-        EnemyAgent.velocity = hitDirection * nbStrength;
+        if(NowEnemyState != EnemyState.KickBack && NowEnemyState != EnemyState.Dead)
+        {
+            EnemyHealth -= damegeValue;
+            StartCoroutine(HitStopEffect());
+        }
+    }
+
+    IEnumerator HitStopEffect()
+    {
+        Time.timeScale = HSScale;
+        NowEnemyState = EnemyState.KickBack;
+        
+        Debug.Log("now enemy hit stop");
+
+        yield return new WaitForSecondsRealtime(HSTime);
+
+        Time.timeScale = 1f;
+        NowEnemyState = EnemyState.Move;
     }
 }
