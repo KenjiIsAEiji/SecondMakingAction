@@ -188,6 +188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyModelV2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3214614265047532283, guid: 1136f9e031ea7824a8475c39e83b8eed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1136f9e031ea7824a8475c39e83b8eed, type: 3}
 --- !u!1 &211454309
@@ -5488,6 +5493,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &464432190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4018373119038278645, guid: 36f16e543b8456744866b9de5370f581,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018373118768581368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bd258a6e0d4804caa0ab8d27ffaf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &470084114
 GameObject:
   m_ObjectHideFlags: 0
@@ -5665,6 +5682,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyModelV2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3214614265047532283, guid: 1136f9e031ea7824a8475c39e83b8eed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1136f9e031ea7824a8475c39e83b8eed, type: 3}
 --- !u!43 &772483553
@@ -5673,7 +5695,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17524
+  m_Name: pb_Mesh17528
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5842,7 +5864,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17482
+  m_Name: pb_Mesh17486
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6754,8 +6776,13 @@ PrefabInstance:
     - target: {fileID: 4018373117999120323, guid: 36f16e543b8456744866b9de5370f581,
         type: 3}
       propertyPath: AttackValue
-      value: 34
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4018373117999120323, guid: 36f16e543b8456744866b9de5370f581,
+        type: 3}
+      propertyPath: characterAnimation
+      value: 
+      objectReference: {fileID: 464432190}
     - target: {fileID: 4018373117999120324, guid: 36f16e543b8456744866b9de5370f581,
         type: 3}
       propertyPath: m_IsTrigger

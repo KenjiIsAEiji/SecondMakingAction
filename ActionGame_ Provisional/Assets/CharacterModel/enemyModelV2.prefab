@@ -278,8 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyHealth: 100
-  HSScale: 0.1
-  HSTime: 0.4
+  HSScale: 0.15
+  HS_BaceTime: 0.2
   NowEnemyState: 0
 --- !u!1 &3214614265047532285
 GameObject:

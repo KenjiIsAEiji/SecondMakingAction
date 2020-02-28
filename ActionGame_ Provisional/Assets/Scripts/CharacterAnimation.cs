@@ -14,6 +14,8 @@ public class CharacterAnimation : MonoBehaviour
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
 
+    public float NowMotionScale;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class CharacterAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
 
         swordCollider.enabled = false;
+        NowMotionScale = 0;
     }
 
     // Update is called once per frame
@@ -55,11 +58,13 @@ public class CharacterAnimation : MonoBehaviour
         }
     }
 
-    void AttackEnter()
+    void AttackEnter(float motionScale)
     {
         Debug.Log("Attack Start");
         testEffect.GetComponent<ParticleSystem>().Play();
         swordCollider.enabled = true;
+
+        NowMotionScale = motionScale;
     }
 
     void AttackExit()
@@ -67,5 +72,7 @@ public class CharacterAnimation : MonoBehaviour
         Debug.Log("Attack End");
         testEffect.GetComponent<ParticleSystem>().Stop();
         swordCollider.enabled = false;
+
+        NowMotionScale = 0;
     }
 }

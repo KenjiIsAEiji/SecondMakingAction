@@ -11,6 +11,9 @@ public class HitChecker : MonoBehaviour
     [Range(1, 100)]
     [SerializeField] int AttackValue = 10;
 
+    [Header("モーションスケール参照用")]
+    [SerializeField] CharacterAnimation characterAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,12 +44,13 @@ public class HitChecker : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
-            
-            //Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.white);
 
-            Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+            if(collision.gameObject.GetComponent<EnemyStateController>().EnemyHealth >= 0)
+            {
+                Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+            }
 
-            collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue);
+            collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue,characterAnimation.NowMotionScale);
         }
     }
 }

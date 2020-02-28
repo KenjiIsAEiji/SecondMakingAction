@@ -11,11 +11,11 @@ public class EnemyStateController : MonoBehaviour
     Transform PlayerTransform;
 
     [Header("敵のHP")]
-    [SerializeField] int EnemyHealth = 100;
+    public float EnemyHealth = 100;
 
     [Header("敵のヒットストップ設定")]
     [SerializeField] float HSScale = 0.1f;
-    [SerializeField] float HSTime = 1f;
+    [SerializeField] float HS_BaceTime = 1f;
 
     Animator EnemyAnimator;
 
@@ -50,7 +50,7 @@ public class EnemyStateController : MonoBehaviour
 
             case EnemyState.Move:
                 //ノックバックコルーチンを停止
-                StopCoroutine(HitStopEffect());
+                StopCoroutine("HitStopEffect");
 
                 EnemyAgent.destination = PlayerTransform.position;
 
@@ -82,7 +82,6 @@ public class EnemyStateController : MonoBehaviour
                 Destroy(this.gameObject, 10.0f);
                 break;
         }
-
         EnemyAnimator.SetInteger("EnemyState", (int)NowEnemyState);
     }
 
@@ -101,23 +100,23 @@ public class EnemyStateController : MonoBehaviour
     /// 敵のHPをダメージによって減らす
     /// </summary>
     /// <param name="damegeValue">減らすHP</param>
-    public void Damage(int damegeValue)
+    public void Damage(float damegeValue,float damegeScale)
     {
         if(NowEnemyState != EnemyState.KickBack && NowEnemyState != EnemyState.Dead)
         {
-            EnemyHealth -= damegeValue;
-            StartCoroutine(HitStopEffect());
+            EnemyHealth -= damegeValue * damegeScale;
+            StartCoroutine(HitStopEffect(HS_BaceTime * damegeScale * damegeScale));
         }
     }
 
-    IEnumerator HitStopEffect()
+    IEnumerator HitStopEffect(float stopTime)
     {
         Time.timeScale = HSScale;
         NowEnemyState = EnemyState.KickBack;
         
         Debug.Log("now enemy hit stop");
 
-        yield return new WaitForSecondsRealtime(HSTime);
+        yield return new WaitForSecondsRealtime(stopTime);
 
         Time.timeScale = 1f;
         NowEnemyState = EnemyState.Move;
