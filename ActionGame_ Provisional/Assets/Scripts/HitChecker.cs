@@ -45,7 +45,7 @@ public class HitChecker : MonoBehaviour
         {
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
 
-            if(collision.gameObject.GetComponent<EnemyStateController>().EnemyHealth >= 0)
+            if(collision.gameObject.GetComponent<EnemyStateController>().EnemyCurrentHealth >= 0)
             {
                 Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
             }

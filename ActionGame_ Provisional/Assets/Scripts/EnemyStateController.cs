@@ -11,11 +11,16 @@ public class EnemyStateController : MonoBehaviour
     Transform PlayerTransform;
 
     [Header("敵のHP")]
-    public float EnemyHealth = 100;
+    public float EnemyMaxHealth = 100;
+    public float EnemyCurrentHealth = 100;
 
     [Header("敵のヒットストップ設定")]
     [SerializeField] float HSScale = 0.1f;
     [SerializeField] float HS_BaceTime = 1f;
+
+    [Header("HPバー")]
+    [SerializeField] HealthBar healthBar;
+
 
     Animator EnemyAnimator;
 
@@ -34,6 +39,10 @@ public class EnemyStateController : MonoBehaviour
     void Start()
     {
         NowEnemyState = EnemyState.Move;
+
+        EnemyCurrentHealth = EnemyMaxHealth;
+        healthBar.SetMaxHealth(EnemyMaxHealth);
+
         EnemyAgent = GetComponent<NavMeshAgent>();
         EnemyAnimator = GetComponent<Animator>();
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -57,7 +66,8 @@ public class EnemyStateController : MonoBehaviour
                 EnemyAnimator.SetFloat("MoveSpeed", EnemyAgent.velocity.magnitude);
 
                 //遷移条件
-                if (EnemyHealth <= 0) NowEnemyState = EnemyState.Dead;
+                if (EnemyCurrentHealth <= 0) NowEnemyState = EnemyState.Dead;
+
                 break;
 
             case EnemyState.Attack:
@@ -104,7 +114,11 @@ public class EnemyStateController : MonoBehaviour
     {
         if(NowEnemyState != EnemyState.KickBack && NowEnemyState != EnemyState.Dead)
         {
-            EnemyHealth -= damegeValue * damegeScale;
+            EnemyCurrentHealth -= damegeValue * damegeScale;
+
+            if (EnemyCurrentHealth <= 0) EnemyCurrentHealth = 0;
+            healthBar.SetNowHealth(EnemyCurrentHealth);
+
             StartCoroutine(HitStopEffect(HS_BaceTime * damegeScale * damegeScale));
         }
     }
