@@ -21,8 +21,13 @@ public class EnemyStateController : MonoBehaviour
     [Header("HPバー")]
     [SerializeField] HealthBar healthBar;
 
+    [Header("近接攻撃する距離")]
+    [SerializeField] float attackDistance = 1.2f;
 
     Animator EnemyAnimator;
+
+    // 初期に設定したスピード
+    float nomalSpeed;
 
     enum EnemyState
     {
@@ -43,6 +48,8 @@ public class EnemyStateController : MonoBehaviour
         EnemyCurrentHealth = EnemyMaxHealth;
         healthBar.SetMaxHealth(EnemyMaxHealth);
 
+        //nomalSpeed = EnemyAgent.speed;
+
         EnemyAgent = GetComponent<NavMeshAgent>();
         EnemyAnimator = GetComponent<Animator>();
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -62,20 +69,31 @@ public class EnemyStateController : MonoBehaviour
                 StopCoroutine("HitStopEffect");
 
                 EnemyAgent.destination = PlayerTransform.position;
+                //EnemyAgent.speed = nomalSpeed;
 
-                EnemyAnimator.SetFloat("MoveSpeed", EnemyAgent.velocity.magnitude);
+                float diff = (transform.position - PlayerTransform.position).magnitude;
 
                 //遷移条件
-                if (EnemyCurrentHealth <= 0) NowEnemyState = EnemyState.Dead;
+                if (EnemyCurrentHealth <= 0) 
+                { 
+                    NowEnemyState = EnemyState.Dead;
+                }
+                else if(diff < attackDistance)
+                {
+                    NowEnemyState = EnemyState.Attack;
+                }
 
                 break;
 
             case EnemyState.Attack:
+                EnemyAgent.speed = 0;
+
+                //if (EnemyAnimator.GetInteger("EnemyState") == (int)EnemyState.Move) NowEnemyState = EnemyState.Move;
 
                 break;
 
             case EnemyState.KickBack:
-                EnemyAgent.ResetPath();
+                
                 EnemyAgent.velocity = Vector3.zero;
 
 
@@ -92,6 +110,7 @@ public class EnemyStateController : MonoBehaviour
                 Destroy(this.gameObject, 10.0f);
                 break;
         }
+        EnemyAnimator.SetFloat("MoveSpeed", EnemyAgent.velocity.magnitude);
         EnemyAnimator.SetInteger("EnemyState", (int)NowEnemyState);
     }
 

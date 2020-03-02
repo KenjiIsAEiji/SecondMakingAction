@@ -48,7 +48,8 @@ public class PlayerController : MonoBehaviour
 
         NowPlayerState = PlayerState.NomalFight;
         PlayerCurrentHealth = PlayerMaxHealth;
-        healthBar.SetMaxHealth(PlayerCurrentHealth);
+
+        //healthBar.SetMaxHealth(PlayerMaxHealth);
     }
 
     // Update is called once per frame

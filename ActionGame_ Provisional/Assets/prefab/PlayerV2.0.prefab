@@ -1207,8 +1207,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4018373117999120321}
   m_LocalRotation: {x: 0.0000016408736, y: 1, z: 0.00000059977157, w: 0.000000013038513}
-  m_LocalPosition: {x: -0.00016, y: 0.00061, z: -0.00605}
-  m_LocalScale: {x: 0.00010970009, y: 0.00028690023, z: 0.0144436015}
+  m_LocalPosition: {x: -0.00016, y: 0.00061, z: -0.00598}
+  m_LocalScale: {x: 0.00010970009, y: 0.00028690023, z: 0.0131151015}
   m_Children:
   - {fileID: 4018373119282531522}
   m_Father: {fileID: 6979465219395943355}
@@ -1303,7 +1303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 5229575566799460418, guid: 55886e1836f1b7043848ce610d3e89c6, type: 3}
-  AttackValue: 35
+  AttackValue: 10
+  characterAnimation: {fileID: 4018373119038278645}
 --- !u!1 &4018373118385092340
 GameObject:
   m_ObjectHideFlags: 0
@@ -6517,7 +6518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbe732bd1e2de045886fec924d20209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  Speed: 9
   TurnSpeed: 10
   moveMultiply: 10
   CameraTransform: {fileID: 0}
@@ -6525,6 +6526,10 @@ MonoBehaviour:
   RayRange: 0.2
   Attacking: 0
   IsGrounded: 0
+  NowPlayerState: 0
+  PlayerMaxHealth: 100
+  PlayerCurrentHealth: 0
+  healthBar: {fileID: 0}
 --- !u!114 &4018373119038278645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6539,6 +6544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testEffect: {fileID: 4018373119282531521}
   swordCollider: {fileID: 4018373117999120324}
+  NowMotionScale: 0
 --- !u!1 &5078918846042600850
 GameObject:
   m_ObjectHideFlags: 0

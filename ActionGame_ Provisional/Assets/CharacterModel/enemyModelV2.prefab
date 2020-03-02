@@ -672,6 +672,7 @@ MonoBehaviour:
   HSScale: 0.15
   HS_BaceTime: 0.2
   healthBar: {fileID: 39599618}
+  attackDistance: 1.2
   NowEnemyState: 0
 --- !u!1 &3214614265047532285
 GameObject:
