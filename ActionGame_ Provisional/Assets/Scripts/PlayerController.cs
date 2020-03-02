@@ -17,45 +17,83 @@ public class PlayerController : MonoBehaviour
     [Header("- カメラの向き取得用 -")]
     [SerializeField] Transform CameraTransform;
 
-    [Header("接地判定用のRay発生位置")]
+    [Header("- 接地判定用のRay発生位置 -")]
     [SerializeField] Transform RayOrigin;
     [SerializeField] float RayRange = 10;
 
     public bool Attacking = false;
     public bool IsGrounded;
 
+    public enum PlayerState
+    {
+        Ready = 0,
+        NomalFight = 1,
+        LongRange = 2,
+        Dead = 3
+    }
+    [Header("- Playerの状態 -")]
+    public PlayerState NowPlayerState;
+
+    [Header("- PlayerのHP -")]
+    public float PlayerMaxHealth = 100f;
+    public float PlayerCurrentHealth;
+    [SerializeField] HealthBar healthBar;
+
+
     // Start is called before the first frame update
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         IsGrounded = false;
+
+        NowPlayerState = PlayerState.NomalFight;
+        PlayerCurrentHealth = PlayerMaxHealth;
+        healthBar.SetMaxHealth(PlayerCurrentHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!Attacking)
-        {
-            float moveX = Input.GetAxis("Horizontal");
-            float moveZ = Input.GetAxis("Vertical");
+        float InputX = Input.GetAxis("Horizontal");
+        float InputZ = Input.GetAxis("Vertical");
 
-            MoveVecter = new Vector3(moveX * Speed, 0, moveZ * Speed);
-        }
-        else
+        switch (NowPlayerState)
         {
-            MoveVecter = Vector3.zero;
+            case PlayerState.Ready:
+                break;
+
+            case PlayerState.NomalFight:
+
+                if (!Attacking)
+                {
+                    MoveVecter = new Vector3(InputX * Speed, 0, InputZ * Speed);
+                }
+                else
+                {
+                    MoveVecter = Vector3.zero;
+                }
+
+                NomalMove(MoveVecter);
+
+                break;
+
+            case PlayerState.LongRange:
+                break;
+
+            case PlayerState.Dead:
+                break;
         }
     }
 
-    private void FixedUpdate()
+    void NomalMove(Vector3 move)
     {
         Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
 
-        if (MoveVecter.magnitude > 0)
+        if (move.magnitude > 0)
         {
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
-                Quaternion.LookRotation(camRotation * MoveVecter),
+                Quaternion.LookRotation(camRotation * move),
                 TurnSpeed
             );
         }
@@ -64,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded)
         {
-            playerRigidbody.AddForce(moveMultiply * ((camRotation * MoveVecter) - playerRigidbody.velocity));
+            playerRigidbody.AddForce(moveMultiply * ((camRotation * move) - playerRigidbody.velocity));
         }
         else
         {
