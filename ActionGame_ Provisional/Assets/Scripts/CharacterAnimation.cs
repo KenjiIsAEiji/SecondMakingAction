@@ -60,7 +60,7 @@ public class CharacterAnimation : MonoBehaviour
 
     void AttackEnter(float motionScale)
     {
-        Debug.Log("Attack Start");
+        //Debug.Log("Attack Start");
         testEffect.GetComponent<ParticleSystem>().Play();
         swordCollider.enabled = true;
 
@@ -69,7 +69,7 @@ public class CharacterAnimation : MonoBehaviour
 
     void AttackExit()
     {
-        Debug.Log("Attack End");
+        //Debug.Log("Attack End");
         testEffect.GetComponent<ParticleSystem>().Stop();
         swordCollider.enabled = false;
 

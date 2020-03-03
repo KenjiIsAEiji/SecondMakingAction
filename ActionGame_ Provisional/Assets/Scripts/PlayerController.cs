@@ -24,12 +24,15 @@ public class PlayerController : MonoBehaviour
     public bool Attacking = false;
     public bool IsGrounded;
 
+    Animator playerAnimator;
+
     public enum PlayerState
     {
         Ready = 0,
         NomalFight = 1,
         LongRange = 2,
-        Dead = 3
+        KickBack = 3,
+        Dead = 4
     }
     [Header("- Playerの状態 -")]
     public PlayerState NowPlayerState;
@@ -44,12 +47,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
         IsGrounded = false;
 
         NowPlayerState = PlayerState.NomalFight;
         PlayerCurrentHealth = PlayerMaxHealth;
 
-        //healthBar.SetMaxHealth(PlayerMaxHealth);
+        healthBar.SetMaxHealth(PlayerMaxHealth);
     }
 
     // Update is called once per frame
@@ -64,6 +68,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.NomalFight:
+                StopCoroutine("kickBackTimer");
 
                 if (!Attacking)
                 {
@@ -81,9 +86,17 @@ public class PlayerController : MonoBehaviour
             case PlayerState.LongRange:
                 break;
 
+            case PlayerState.KickBack:
+
+                NomalMove(Vector3.zero);
+
+                break;
+
             case PlayerState.Dead:
                 break;
         }
+
+        playerAnimator.SetInteger("PlayerState", (int)NowPlayerState);
     }
 
     void NomalMove(Vector3 move)
@@ -109,5 +122,21 @@ public class PlayerController : MonoBehaviour
         {
             playerRigidbody.AddForce(Vector3.zero);
         }
+    }
+
+    public void Damage(float damage)
+    {
+        PlayerCurrentHealth -= damage;
+        healthBar.SetNowHealth(PlayerCurrentHealth);
+        StartCoroutine(kickBackTimer(0.5f));
+    }
+
+    IEnumerator kickBackTimer(float backTime)
+    {
+        NowPlayerState = PlayerState.KickBack;
+
+        yield return new WaitForSeconds(backTime);
+
+        NowPlayerState = PlayerState.NomalFight;
     }
 }

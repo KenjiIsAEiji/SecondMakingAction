@@ -24,10 +24,11 @@ public class EnemyStateController : MonoBehaviour
     [Header("近接攻撃する距離")]
     [SerializeField] float attackDistance = 1.2f;
 
-    Animator EnemyAnimator;
+    [Header("敵からの攻撃用")]
+    [SerializeField] float EnemyAttackPower = 10;
+    [SerializeField] GameObject hand;
 
-    // 初期に設定したスピード
-    float nomalSpeed;
+    Animator EnemyAnimator;
 
     enum EnemyState
     {
@@ -39,20 +40,19 @@ public class EnemyStateController : MonoBehaviour
     }
 
     [SerializeField] EnemyState NowEnemyState;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         NowEnemyState = EnemyState.Move;
 
-        EnemyCurrentHealth = EnemyMaxHealth;
-        healthBar.SetMaxHealth(EnemyMaxHealth);
+        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        //nomalSpeed = EnemyAgent.speed;
+        EnemyCurrentHealth = EnemyMaxHealth;
+        healthBar.SetMaxHealth(EnemyCurrentHealth);
 
         EnemyAgent = GetComponent<NavMeshAgent>();
         EnemyAnimator = GetComponent<Animator>();
-        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -68,8 +68,7 @@ public class EnemyStateController : MonoBehaviour
                 //ノックバックコルーチンを停止
                 StopCoroutine("HitStopEffect");
 
-                EnemyAgent.destination = PlayerTransform.position;
-                //EnemyAgent.speed = nomalSpeed;
+                EnemyAgent.SetDestination(PlayerTransform.position);
 
                 float diff = (transform.position - PlayerTransform.position).magnitude;
 
@@ -86,9 +85,11 @@ public class EnemyStateController : MonoBehaviour
                 break;
 
             case EnemyState.Attack:
-                EnemyAgent.speed = 0;
+                EnemyAgent.ResetPath();
+                transform.LookAt(PlayerTransform);
 
-                //if (EnemyAnimator.GetInteger("EnemyState") == (int)EnemyState.Move) NowEnemyState = EnemyState.Move;
+                if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
+                    NowEnemyState = EnemyState.Move;
 
                 break;
 
@@ -115,20 +116,10 @@ public class EnemyStateController : MonoBehaviour
     }
 
     /// <summary>
-    /// 倒れる時のエフェクトなどの呼び出し
+    /// ダメージ処理
     /// </summary>
-    //void DeadAction()
-    //{
-    //    Rigidbody rigidbody = GetComponent<Rigidbody>();
-    //    rigidbody.useGravity = true;
-    //    rigidbody.constraints = RigidbodyConstraints.None;
-    //    rigidbody.AddForce(-transform.forward * 10.0f * HSScale);
-    //}
-
-    /// <summary>
-    /// 敵のHPをダメージによって減らす
-    /// </summary>
-    /// <param name="damegeValue">減らすHP</param>
+    /// <param name="damegeValue">ダメージ量</param>
+    /// <param name="damegeScale">モーションごとのダメージ倍率</param>
     public void Damage(float damegeValue,float damegeScale)
     {
         if(NowEnemyState != EnemyState.KickBack && NowEnemyState != EnemyState.Dead)
@@ -138,7 +129,7 @@ public class EnemyStateController : MonoBehaviour
             if (EnemyCurrentHealth <= 0) EnemyCurrentHealth = 0;
             healthBar.SetNowHealth(EnemyCurrentHealth);
 
-            StartCoroutine(HitStopEffect(HS_BaceTime * damegeScale * damegeScale));
+            StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale,2) ));
         }
     }
 
@@ -154,4 +145,27 @@ public class EnemyStateController : MonoBehaviour
         Time.timeScale = 1f;
         NowEnemyState = EnemyState.Move;
     }
+
+    void AttackEnter()
+    {
+        Debug.Log("Enemy Attack Start");
+        hand.GetComponent<Collider>().enabled = true;
+    }
+
+    void AttackExit()
+    {
+        Debug.Log("Enemy Attack End");
+        hand.GetComponent<Collider>().enabled = false;
+    }
+
+    /// <summary>
+    /// 倒れる時のエフェクトなどの呼び出し
+    /// </summary>
+    //void DeadAction()
+    //{
+    //    Rigidbody rigidbody = GetComponent<Rigidbody>();
+    //    rigidbody.useGravity = true;
+    //    rigidbody.constraints = RigidbodyConstraints.None;
+    //    rigidbody.AddForce(-transform.forward * 10.0f * HSScale);
+    //}
 }

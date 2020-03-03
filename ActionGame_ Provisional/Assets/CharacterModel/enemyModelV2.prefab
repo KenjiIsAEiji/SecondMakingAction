@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07d7ba89cec28947a0f367876d1340b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 39599617}
   colorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -667,12 +668,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383f14c93aaf904478464fada9a231d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerTransform: {fileID: 0}
   EnemyMaxHealth: 100
-  EnemyCurrentHealth: 100
+  EnemyCurrentHealth: 0
   HSScale: 0.15
   HS_BaceTime: 0.2
   healthBar: {fileID: 39599618}
-  attackDistance: 1.2
+  attackDistance: 2
   NowEnemyState: 0
 --- !u!1 &3214614265047532285
 GameObject:
@@ -1688,6 +1690,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3214614265047048025}
+  - component: {fileID: 9107942725474493529}
+  - component: {fileID: 2650999088426700146}
   m_Layer: 0
   m_Name: B_L_Hand
   m_TagString: Untagged
@@ -1714,6 +1718,32 @@ Transform:
   m_Father: {fileID: 3214614265047048023}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &9107942725474493529
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214614265047532345}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.09
+  m_Height: 0.48792496
+  m_Direction: 0
+  m_Center: {x: -0.12848744, y: 0.000000036919758, z: 0.00000002007838}
+--- !u!114 &2650999088426700146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214614265047532345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b7000034dd1df4d969bc0ee593023e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3214614265047532347
 GameObject:
   m_ObjectHideFlags: 0
