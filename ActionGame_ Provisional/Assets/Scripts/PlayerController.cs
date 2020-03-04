@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
     public float PlayerCurrentHealth;
     [SerializeField] HealthBar healthBar;
 
+    [Header("- ノックバック -")]
+    [SerializeField] float kickBackStrength = 2f;
+    private Vector3 kickBackDrection;
+    [SerializeField] CamEffect effect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -124,19 +129,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Damage(float damage)
+    public void Damage(float damage, Vector3 AttackForce)
     {
+        Debug.Log("player damage");
         PlayerCurrentHealth -= damage;
+        kickBackDrection = AttackForce;
+
         healthBar.SetNowHealth(PlayerCurrentHealth);
-        StartCoroutine(kickBackTimer(0.5f));
+        StartCoroutine(KickBackTimer(0.5f));
     }
 
-    IEnumerator kickBackTimer(float backTime)
+    IEnumerator KickBackTimer(float backTime)
     {
         NowPlayerState = PlayerState.KickBack;
+        KickBackMove(kickBackDrection);
+        effect.DamageEffect(1);
 
         yield return new WaitForSeconds(backTime);
 
         NowPlayerState = PlayerState.NomalFight;
+        effect.DamageEffect(0);
+    }
+
+    void KickBackMove(Vector3 move)
+    {
+        transform.rotation = Quaternion.LookRotation(-move,transform.up);
+
+        playerRigidbody.AddForce(move * kickBackStrength,ForceMode.Impulse);
     }
 }

@@ -5,12 +5,13 @@ using UnityEngine;
 public class HandCollider : MonoBehaviour
 {
     public float AttackPower = 10;
+    [SerializeField] Transform EnemyTransform;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().Damage(AttackPower);
+            collision.gameObject.GetComponent<PlayerController>().Damage(AttackPower,EnemyTransform.forward);
         }
     }
 }

@@ -148,13 +148,13 @@ public class EnemyStateController : MonoBehaviour
 
     void AttackEnter()
     {
-        Debug.Log("Enemy Attack Start");
+        //Debug.Log("Enemy Attack Start");
         hand.GetComponent<Collider>().enabled = true;
     }
 
-    void AttackExit()
+    public void AttackExit()
     {
-        Debug.Log("Enemy Attack End");
+        //Debug.Log("Enemy Attack End");
         hand.GetComponent<Collider>().enabled = false;
     }
 
