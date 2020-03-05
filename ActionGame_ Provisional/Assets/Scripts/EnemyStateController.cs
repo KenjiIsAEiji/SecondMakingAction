@@ -86,7 +86,7 @@ public class EnemyStateController : MonoBehaviour
 
             case EnemyState.Attack:
                 EnemyAgent.ResetPath();
-                transform.LookAt(PlayerTransform);
+                transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position),transform.up);
 
                 if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
                     NowEnemyState = EnemyState.Move;
@@ -126,11 +126,27 @@ public class EnemyStateController : MonoBehaviour
         {
             EnemyCurrentHealth -= damegeValue * damegeScale;
 
-            if (EnemyCurrentHealth <= 0) EnemyCurrentHealth = 0;
+            if (EnemyCurrentHealth <= 0)
+            {
+                EnemyCurrentHealth = 0;
+                StartCoroutine(DeadAction(1f));
+            }
+            else
+            {
+                StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale, 2)));
+            }
             healthBar.SetNowHealth(EnemyCurrentHealth);
-
-            StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale,2) ));
         }
+    }
+
+    IEnumerator DeadAction(float _time)
+    {
+        Time.timeScale = HSScale;
+        NowEnemyState = EnemyState.Dead;
+
+        yield return new WaitForSecondsRealtime(_time);
+
+        Time.timeScale = 1f;
     }
 
     IEnumerator HitStopEffect(float stopTime)
@@ -143,6 +159,7 @@ public class EnemyStateController : MonoBehaviour
         yield return new WaitForSecondsRealtime(stopTime);
 
         Time.timeScale = 1f;
+
         NowEnemyState = EnemyState.Move;
     }
 

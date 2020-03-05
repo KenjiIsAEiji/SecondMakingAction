@@ -6530,6 +6530,8 @@ MonoBehaviour:
   PlayerMaxHealth: 100
   PlayerCurrentHealth: 0
   healthBar: {fileID: 0}
+  kickBackStrength: 26.8
+  effect: {fileID: 0}
 --- !u!114 &4018373119038278645
 MonoBehaviour:
   m_ObjectHideFlags: 0

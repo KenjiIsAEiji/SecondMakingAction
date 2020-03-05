@@ -136,19 +136,36 @@ public class PlayerController : MonoBehaviour
         kickBackDrection = AttackForce;
 
         healthBar.SetNowHealth(PlayerCurrentHealth);
-        StartCoroutine(KickBackTimer(0.5f));
+        if (PlayerCurrentHealth <= PlayerMaxHealth / 3)
+        {
+            StartCoroutine(KickBackTimer(0.5f));
+        }
+        else
+        {
+            StartCoroutine(DamageEffect(0.5f));
+        }
+    }
+
+    IEnumerator DamageEffect(float waitTime)
+    {
+        effect.DamageEffect(1);
+
+        yield return new WaitForSeconds(waitTime);
+
+        effect.DamageEffect(0);
     }
 
     IEnumerator KickBackTimer(float backTime)
     {
         NowPlayerState = PlayerState.KickBack;
         KickBackMove(kickBackDrection);
-        effect.DamageEffect(1);
+
+        effect.KickBackEffect(1);
 
         yield return new WaitForSeconds(backTime);
 
         NowPlayerState = PlayerState.NomalFight;
-        effect.DamageEffect(0);
+        effect.KickBackEffect(0);
     }
 
     void KickBackMove(Vector3 move)

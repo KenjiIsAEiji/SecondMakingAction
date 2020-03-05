@@ -67,7 +67,7 @@ public class CharacterAnimation : MonoBehaviour
         NowMotionScale = motionScale;
     }
 
-    void AttackExit()
+    public void AttackExit()
     {
         Debug.Log("Attack End");
         testEffect.GetComponent<ParticleSystem>().Stop();

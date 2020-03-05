@@ -6,26 +6,26 @@ using Cinemachine;
 
 public class CamEffect : MonoBehaviour
 {
-    Volume volume;
     CinemachineImpulseSource impulseSource;
-    
 
+    [SerializeField] Volume DamageEffectVol;
+    [SerializeField] Volume KickBackEffectVol;
+    
     // Start is called before the first frame update
     void Start()
     {
-        volume = GetComponent<Volume>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void DamageEffect(float weight)
     {
-        volume.weight = weight;
+        DamageEffectVol.weight = weight;
+    }
+
+    public void KickBackEffect(float weight)
+    {
         impulseSource.GenerateImpulse();
+        DamageEffectVol.weight = weight;
+        KickBackEffectVol.weight = weight;
     }
 }
