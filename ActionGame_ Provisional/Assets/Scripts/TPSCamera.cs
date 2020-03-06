@@ -26,8 +26,8 @@ public class TPSCamera : MonoBehaviour
             Time.deltaTime * FollowSpeed
         );
 
-        yaw += Input.GetAxis("Mouse X") * RotateSpeed * Time.deltaTime;
-        pitch -= Input.GetAxis("Mouse Y") * RotateSpeed * Time.deltaTime;
+        yaw += Input.GetAxis("Mouse X") * RotateSpeed * Time.unscaledDeltaTime;
+        pitch -= Input.GetAxis("Mouse Y") * RotateSpeed * Time.unscaledDeltaTime;
 
         pitch = Mathf.Clamp(pitch, -80, 60);
 
