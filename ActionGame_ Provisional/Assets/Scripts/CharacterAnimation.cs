@@ -14,7 +14,13 @@ public class CharacterAnimation : MonoBehaviour
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
 
+
     public float NowMotionScale;
+
+    [Header("足音")]
+    public AudioClip walksound;
+    AudioSource audiosource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +30,11 @@ public class CharacterAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
 
         swordCollider.enabled = false;
+
         NowMotionScale = 0;
+
+        audiosource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -75,4 +85,22 @@ public class CharacterAnimation : MonoBehaviour
 
         NowMotionScale = 0;
     }
+
+    void WalksoundEnter()
+    {
+        if (playerController.IsGrounded == true)
+        {
+            Debug.Log("Sound Start");
+            audiosource.PlayOneShot(walksound);
+        }
+    }
+
+    //void WalksoundExit()
+    //{
+    //    if (playerController.IsGrounded == false)
+    //    {
+    //        Debug.Log("Sound End");
+    //        audiosource.Stop();
+    //    }
+    //}
 }
