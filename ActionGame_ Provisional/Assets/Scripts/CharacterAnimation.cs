@@ -51,7 +51,7 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetFloat("Speed", 0);
         }
         
-        if (Input.GetMouseButtonDown(0) && playerRigidbody.velocity.magnitude > 0.1f)
+        if (Input.GetMouseButtonDown(0) && playerController.MoveVecter.magnitude > 1f)
         {
             animator.SetTrigger("Attack");
             animator.SetInteger("AttackType", 1);
@@ -75,6 +75,7 @@ public class CharacterAnimation : MonoBehaviour
         swordCollider.enabled = true;
 
         NowMotionScale = motionScale;
+        playerController.AttackMove(motionScale);
     }
 
     public void AttackExit()

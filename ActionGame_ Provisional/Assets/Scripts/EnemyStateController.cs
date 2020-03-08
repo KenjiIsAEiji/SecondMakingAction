@@ -10,23 +10,27 @@ public class EnemyStateController : MonoBehaviour
     NavMeshAgent EnemyAgent;
     Transform PlayerTransform;
 
-    [Header("敵のHP")]
+    [Header("- 敵のHP -")]
     public float EnemyMaxHealth = 100;
     public float EnemyCurrentHealth = 100;
 
-    [Header("敵のヒットストップ設定")]
+    [Header("- 敵のヒットストップ設定 -")]
     [SerializeField] float HSScale = 0.1f;
     [SerializeField] float HS_BaceTime = 1f;
 
-    [Header("HPバー")]
+    [Header("- HPバー -")]
     [SerializeField] HealthBar healthBar;
 
-    [Header("近接攻撃する距離")]
+    [Header("- 近接攻撃する距離 -")]
     [SerializeField] float attackDistance = 1.2f;
 
-    [Header("敵からの攻撃用")]
+    [Header("- 敵からの攻撃用 -")]
     [SerializeField] float EnemyAttackPower = 10;
     [SerializeField] GameObject hand;
+
+    [Header("- ノックバックの設定 -")]
+    [SerializeField] float KickBackForce = 10.0f;
+    [SerializeField] float KickBackTime = 1f;
 
     Animator EnemyAnimator;
 
@@ -67,6 +71,9 @@ public class EnemyStateController : MonoBehaviour
             case EnemyState.Move:
                 //ノックバックコルーチンを停止
                 StopCoroutine("HitStopEffect");
+                StopCoroutine("NoDamageTimer");
+
+                EnemyAgent.updateRotation = true;
 
                 EnemyAgent.SetDestination(PlayerTransform.position);
 
@@ -86,17 +93,22 @@ public class EnemyStateController : MonoBehaviour
 
             case EnemyState.Attack:
                 EnemyAgent.ResetPath();
+                EnemyAgent.velocity = Vector3.zero;
+                EnemyAgent.updateRotation = false;
                 transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position),transform.up);
 
                 if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
+                {
                     NowEnemyState = EnemyState.Move;
+                }
 
                 break;
 
             case EnemyState.KickBack:
-                
-                EnemyAgent.velocity = Vector3.zero;
+                EnemyAgent.ResetPath();
 
+                EnemyAgent.updateRotation = false;
+                transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position), transform.up);
 
                 break;
 
@@ -105,9 +117,9 @@ public class EnemyStateController : MonoBehaviour
                 //EnemyAgent.ResetPath(); //Agent停止
 
                 EnemyAgent.enabled = false;
+                GetComponent<Collider>().enabled = false;
 
                 Debug.Log(gameObject.name + " is Dead");
-                //DeadAction();
                 Destroy(this.gameObject, 10.0f);
                 break;
         }
@@ -130,38 +142,51 @@ public class EnemyStateController : MonoBehaviour
             {
                 EnemyCurrentHealth = 0;
                 StartCoroutine(DeadAction(1f));
+                NowEnemyState = EnemyState.Dead;
             }
             else
             {
-                StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale, 2)));
+                //StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale, 2)));
+                StartCoroutine(NoDamageTimer());
+                NowEnemyState = EnemyState.KickBack;
             }
             healthBar.SetNowHealth(EnemyCurrentHealth);
         }
     }
 
+    void KickBackMove()
+    {
+        EnemyAnimator.SetTrigger("KickBack");
+        Vector3 direction = PlayerTransform.position - transform.position;
+        EnemyAgent.velocity = -direction.normalized * KickBackForce;
+    }
+
+    IEnumerator NoDamageTimer()
+    {
+        KickBackMove();
+
+        yield return new WaitForSecondsRealtime(KickBackTime);
+
+        NowEnemyState = EnemyState.Move;
+    }
+
     IEnumerator DeadAction(float _time)
     {
         Time.timeScale = HSScale;
-        NowEnemyState = EnemyState.Dead;
 
         yield return new WaitForSecondsRealtime(_time);
 
         Time.timeScale = 1f;
     }
 
-    IEnumerator HitStopEffect(float stopTime)
-    {
-        Time.timeScale = HSScale;
-        NowEnemyState = EnemyState.KickBack;
-        
-        Debug.Log("now enemy hit stop");
+    //IEnumerator HitStopEffect(float stopTime)
+    //{
+    //    Time.timeScale = HSScale;
 
-        yield return new WaitForSecondsRealtime(stopTime);
+    //    yield return new WaitForSecondsRealtime(stopTime);
 
-        Time.timeScale = 1f;
-
-        NowEnemyState = EnemyState.Move;
-    }
+    //    Time.timeScale = 1f;
+    //}
 
     void AttackEnter()
     {
@@ -174,15 +199,4 @@ public class EnemyStateController : MonoBehaviour
         //Debug.Log("Enemy Attack End");
         hand.GetComponent<Collider>().enabled = false;
     }
-
-    /// <summary>
-    /// 倒れる時のエフェクトなどの呼び出し
-    /// </summary>
-    //void DeadAction()
-    //{
-    //    Rigidbody rigidbody = GetComponent<Rigidbody>();
-    //    rigidbody.useGravity = true;
-    //    rigidbody.constraints = RigidbodyConstraints.None;
-    //    rigidbody.AddForce(-transform.forward * 10.0f * HSScale);
-    //}
 }

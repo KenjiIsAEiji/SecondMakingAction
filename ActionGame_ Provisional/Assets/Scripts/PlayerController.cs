@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody playerRigidbody;
-    Vector3 MoveVecter = Vector3.zero;
+    public Vector3 MoveVecter = Vector3.zero;
 
     [Header("- 移動速度・キャラクター回転速度 -")]
     [SerializeField] float Speed = 10.0f;
@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float kickBackStrength = 2f;
     private Vector3 kickBackDrection;
     [SerializeField] CamEffect effect;
+
+    [Header("- 攻撃時の移動 -")]
+    [SerializeField] float AttackJump = 20f;
 
 
     // Start is called before the first frame update
@@ -127,6 +130,11 @@ public class PlayerController : MonoBehaviour
         {
             playerRigidbody.AddForce(Vector3.zero);
         }
+    }
+
+    public void AttackMove(float weight)
+    {
+        playerRigidbody.AddForce(transform.forward * AttackJump * weight ,ForceMode.Impulse);
     }
 
     public void Damage(float damage, Vector3 AttackForce)
