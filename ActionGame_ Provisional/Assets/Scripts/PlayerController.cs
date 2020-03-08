@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody playerRigidbody;
-    Vector3 MoveVecter = Vector3.zero;
+    public Vector3 MoveVecter = Vector3.zero;
 
     [Header("- 移動速度・キャラクター回転速度 -")]
     [SerializeField] float Speed = 10.0f;
@@ -17,45 +17,105 @@ public class PlayerController : MonoBehaviour
     [Header("- カメラの向き取得用 -")]
     [SerializeField] Transform CameraTransform;
 
-    [Header("接地判定用のRay発生位置")]
+    [Header("- 接地判定用のRay発生位置 -")]
     [SerializeField] Transform RayOrigin;
     [SerializeField] float RayRange = 10;
 
     public bool Attacking = false;
     public bool IsGrounded;
 
+    Animator playerAnimator;
+
+    public enum PlayerState
+    {
+        Ready = 0,
+        NomalFight = 1,
+        LongRange = 2,
+        KickBack = 3,
+        Dead = 4
+    }
+    [Header("- Playerの状態 -")]
+    public PlayerState NowPlayerState;
+
+    [Header("- PlayerのHP -")]
+    public float PlayerMaxHealth = 100f;
+    public float PlayerCurrentHealth;
+    [SerializeField] HealthBar healthBar;
+
+    [Header("- ノックバック -")]
+    [SerializeField] float kickBackStrength = 2f;
+    private Vector3 kickBackDrection;
+    [SerializeField] CamEffect effect;
+
+    [Header("- 攻撃時の移動 -")]
+    [SerializeField] float AttackJump = 20f;
+
+
     // Start is called before the first frame update
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
         IsGrounded = false;
+
+        NowPlayerState = PlayerState.NomalFight;
+        PlayerCurrentHealth = PlayerMaxHealth;
+
+        healthBar.SetMaxHealth(PlayerMaxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!Attacking)
-        {
-            float moveX = Input.GetAxis("Horizontal");
-            float moveZ = Input.GetAxis("Vertical");
+        float InputX = Input.GetAxis("Horizontal");
+        float InputZ = Input.GetAxis("Vertical");
 
-            MoveVecter = new Vector3(moveX * Speed, 0, moveZ * Speed);
-        }
-        else
+        switch (NowPlayerState)
         {
-            MoveVecter = Vector3.zero;
+            case PlayerState.Ready:
+                break;
+
+            case PlayerState.NomalFight:
+                StopCoroutine("kickBackTimer");
+
+                if (!Attacking)
+                {
+                    MoveVecter = new Vector3(InputX * Speed, 0, InputZ * Speed);
+                }
+                else
+                {
+                    MoveVecter = Vector3.zero;
+                }
+
+                NomalMove(MoveVecter);
+
+                break;
+
+            case PlayerState.LongRange:
+                break;
+
+            case PlayerState.KickBack:
+
+                NomalMove(Vector3.zero);
+
+                break;
+
+            case PlayerState.Dead:
+                break;
         }
+
+        playerAnimator.SetInteger("PlayerState", (int)NowPlayerState);
     }
 
-    private void FixedUpdate()
+    void NomalMove(Vector3 move)
     {
         Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
 
-        if (MoveVecter.magnitude > 0)
+        if (move.magnitude > 0)
         {
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
-                Quaternion.LookRotation(camRotation * MoveVecter),
+                Quaternion.LookRotation(camRotation * move),
                 TurnSpeed
             );
         }
@@ -64,11 +124,62 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded)
         {
-            playerRigidbody.AddForce(moveMultiply * ((camRotation * MoveVecter) - playerRigidbody.velocity));
+            playerRigidbody.AddForce(moveMultiply * ((camRotation * move) - playerRigidbody.velocity));
         }
         else
         {
             playerRigidbody.AddForce(Vector3.zero);
         }
+    }
+
+    public void AttackMove(float weight)
+    {
+        playerRigidbody.AddForce(transform.forward * AttackJump * weight ,ForceMode.Impulse);
+    }
+
+    public void Damage(float damage, Vector3 AttackForce)
+    {
+        Debug.Log("player damage");
+        PlayerCurrentHealth -= damage;
+        kickBackDrection = AttackForce;
+
+        healthBar.SetNowHealth(PlayerCurrentHealth);
+        if (PlayerCurrentHealth <= PlayerMaxHealth / 3)
+        {
+            StartCoroutine(KickBackTimer(0.5f));
+        }
+        else
+        {
+            StartCoroutine(DamageEffect(0.5f));
+        }
+    }
+
+    IEnumerator DamageEffect(float waitTime)
+    {
+        effect.DamageEffect(1);
+
+        yield return new WaitForSeconds(waitTime);
+
+        effect.DamageEffect(0);
+    }
+
+    IEnumerator KickBackTimer(float backTime)
+    {
+        NowPlayerState = PlayerState.KickBack;
+        KickBackMove(kickBackDrection);
+
+        effect.KickBackEffect(1);
+
+        yield return new WaitForSeconds(backTime);
+
+        NowPlayerState = PlayerState.NomalFight;
+        effect.KickBackEffect(0);
+    }
+
+    void KickBackMove(Vector3 move)
+    {
+        transform.rotation = Quaternion.LookRotation(-move,transform.up);
+
+        playerRigidbody.AddForce(move * kickBackStrength,ForceMode.Impulse);
     }
 }

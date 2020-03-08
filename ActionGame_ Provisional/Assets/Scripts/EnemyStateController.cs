@@ -3,30 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public class EnemyStateController : MonoBehaviour
 {
     NavMeshAgent EnemyAgent;
     Transform PlayerTransform;
 
-    [Header("敵のHP")]
-    [SerializeField] int EnemyHealth = 100;
+    [Header("- 敵のHP -")]
+    public float EnemyMaxHealth = 100;
+    public float EnemyCurrentHealth = 100;
+
+    [Header("- 敵のヒットストップ設定 -")]
+    [SerializeField] float HSScale = 0.1f;
+    [SerializeField] float HS_BaceTime = 1f;
+
+    [Header("- HPバー -")]
+    [SerializeField] HealthBar healthBar;
+
+    [Header("- 近接攻撃する距離 -")]
+    [SerializeField] float attackDistance = 1.2f;
+
+    [Header("- 敵からの攻撃用 -")]
+    [SerializeField] float EnemyAttackPower = 10;
+    [SerializeField] GameObject hand;
+
+    [Header("- ノックバックの設定 -")]
+    [SerializeField] float KickBackForce = 10.0f;
+    [SerializeField] float KickBackTime = 1f;
+
+    Animator EnemyAnimator;
 
     enum EnemyState
     {
         Ready = 0,
         Move = 1,
         Attack = 2,
-        Dead = 3
+        KickBack = 3,
+        Dead = 4
     }
 
-    EnemyState NowEnemyState;
-    
+    [SerializeField] EnemyState NowEnemyState;
+
     // Start is called before the first frame update
     void Start()
     {
         NowEnemyState = EnemyState.Move;
-        EnemyAgent = GetComponent<NavMeshAgent>();
+
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        EnemyCurrentHealth = EnemyMaxHealth;
+        healthBar.SetMaxHealth(EnemyCurrentHealth);
+
+        EnemyAgent = GetComponent<NavMeshAgent>();
+        EnemyAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,17 +65,50 @@ public class EnemyStateController : MonoBehaviour
         switch (NowEnemyState)
         {
             case EnemyState.Ready:
-                
+
                 break;
 
             case EnemyState.Move:
-                EnemyAgent.destination = PlayerTransform.position;
-                
+                //ノックバックコルーチンを停止
+                StopCoroutine("HitStopEffect");
+                StopCoroutine("NoDamageTimer");
+
+                EnemyAgent.updateRotation = true;
+
+                EnemyAgent.SetDestination(PlayerTransform.position);
+
+                float diff = (transform.position - PlayerTransform.position).magnitude;
+
                 //遷移条件
-                if (EnemyHealth <= 0) NowEnemyState = EnemyState.Dead;
+                if (EnemyCurrentHealth <= 0) 
+                { 
+                    NowEnemyState = EnemyState.Dead;
+                }
+                else if(diff < attackDistance)
+                {
+                    NowEnemyState = EnemyState.Attack;
+                }
+
                 break;
 
             case EnemyState.Attack:
+                EnemyAgent.ResetPath();
+                EnemyAgent.velocity = Vector3.zero;
+                EnemyAgent.updateRotation = false;
+                transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position),transform.up);
+
+                if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
+                {
+                    NowEnemyState = EnemyState.Move;
+                }
+
+                break;
+
+            case EnemyState.KickBack:
+                EnemyAgent.ResetPath();
+
+                EnemyAgent.updateRotation = false;
+                transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position), transform.up);
 
                 break;
 
@@ -54,29 +117,85 @@ public class EnemyStateController : MonoBehaviour
                 //EnemyAgent.ResetPath(); //Agent停止
 
                 EnemyAgent.enabled = false;
+                GetComponent<Collider>().enabled = false;
 
                 Debug.Log(gameObject.name + " is Dead");
-                DeadAction();
                 Destroy(this.gameObject, 10.0f);
                 break;
         }
-    }
-    /// <summary>
-    /// 倒れる時のエフェクトなどの呼び出し
-    /// </summary>
-    void DeadAction()
-    {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.useGravity = true;
-        rigidbody.constraints = RigidbodyConstraints.None;
+        EnemyAnimator.SetFloat("MoveSpeed", EnemyAgent.velocity.magnitude);
+        EnemyAnimator.SetInteger("EnemyState", (int)NowEnemyState);
     }
 
     /// <summary>
-    /// 敵のHPをダメージによって減らす
+    /// ダメージ処理
     /// </summary>
-    /// <param name="damegeValue">減らすHP</param>
-    public void Damage(int damegeValue)
+    /// <param name="damegeValue">ダメージ量</param>
+    /// <param name="damegeScale">モーションごとのダメージ倍率</param>
+    public void Damage(float damegeValue,float damegeScale)
     {
-        EnemyHealth -= damegeValue;
+        if(NowEnemyState != EnemyState.KickBack && NowEnemyState != EnemyState.Dead)
+        {
+            EnemyCurrentHealth -= damegeValue * damegeScale;
+
+            if (EnemyCurrentHealth <= 0)
+            {
+                EnemyCurrentHealth = 0;
+                StartCoroutine(DeadAction(1f));
+                NowEnemyState = EnemyState.Dead;
+            }
+            else
+            {
+                //StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale, 2)));
+                StartCoroutine(NoDamageTimer());
+                NowEnemyState = EnemyState.KickBack;
+            }
+            healthBar.SetNowHealth(EnemyCurrentHealth);
+        }
+    }
+
+    void KickBackMove()
+    {
+        EnemyAnimator.SetTrigger("KickBack");
+        EnemyAgent.velocity = PlayerTransform.forward * KickBackForce;
+    }
+
+    IEnumerator NoDamageTimer()
+    {
+        KickBackMove();
+
+        yield return new WaitForSecondsRealtime(KickBackTime);
+
+        NowEnemyState = EnemyState.Move;
+    }
+
+    IEnumerator DeadAction(float _time)
+    {
+        Time.timeScale = HSScale;
+
+        yield return new WaitForSecondsRealtime(_time);
+
+        Time.timeScale = 1f;
+    }
+
+    //IEnumerator HitStopEffect(float stopTime)
+    //{
+    //    Time.timeScale = HSScale;
+
+    //    yield return new WaitForSecondsRealtime(stopTime);
+
+    //    Time.timeScale = 1f;
+    //}
+
+    void AttackEnter()
+    {
+        //Debug.Log("Enemy Attack Start");
+        hand.GetComponent<Collider>().enabled = true;
+    }
+
+    public void AttackExit()
+    {
+        //Debug.Log("Enemy Attack End");
+        hand.GetComponent<Collider>().enabled = false;
     }
 }

@@ -11,6 +11,9 @@ public class HitChecker : MonoBehaviour
     [Range(1, 100)]
     [SerializeField] int AttackValue = 10;
 
+    [Header("モーションスケール参照用")]
+    [SerializeField] CharacterAnimation characterAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,17 +26,31 @@ public class HitChecker : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Hit!!");
-            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, Vector3.up);
-            Instantiate(effect, other.ClosestPoint(transform.position), effectSponeAngle);
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))
+    //    {
+    //        Debug.Log("Hit!!");
+    //        Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, Vector3.up);
+    //        Instantiate(effect, other.ClosestPoint(transform.position), effectSponeAngle);
 
-            // Hit時にダメージ処理
-            other.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue);
+    //        // Hit時にダメージ処理
+    //        other.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue,transform.forward);
+    //    }
+    //}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
+
+            if(collision.gameObject.GetComponent<EnemyStateController>().EnemyCurrentHealth >= 0)
+            {
+                Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+            }
+
+            collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue,characterAnimation.NowMotionScale);
         }
     }
-    
 }
