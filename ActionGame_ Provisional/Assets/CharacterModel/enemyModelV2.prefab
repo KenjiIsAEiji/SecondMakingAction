@@ -676,8 +676,8 @@ MonoBehaviour:
   attackDistance: 1
   EnemyAttackPower: 10
   hand: {fileID: 3214614265047532345}
-  KickBackForce: 6.3
-  KickBackTime: 1
+  KickBackForce: 6.74
+  KickBackTime: 0.6
   NowEnemyState: 0
 --- !u!1 &3214614265047532285
 GameObject:

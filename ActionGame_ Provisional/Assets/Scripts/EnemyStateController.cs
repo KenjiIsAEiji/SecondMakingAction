@@ -157,8 +157,7 @@ public class EnemyStateController : MonoBehaviour
     void KickBackMove()
     {
         EnemyAnimator.SetTrigger("KickBack");
-        Vector3 direction = PlayerTransform.position - transform.position;
-        EnemyAgent.velocity = -direction.normalized * KickBackForce;
+        EnemyAgent.velocity = PlayerTransform.forward * KickBackForce;
     }
 
     IEnumerator NoDamageTimer()

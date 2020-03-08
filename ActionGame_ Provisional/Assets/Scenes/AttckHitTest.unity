@@ -7129,6 +7129,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3214614265026574025, guid: 1136f9e031ea7824a8475c39e83b8eed,
+        type: 3}
+      propertyPath: KickBackForce
+      value: 8.69
+      objectReference: {fileID: 0}
     - target: {fileID: 3214614265047047963, guid: 1136f9e031ea7824a8475c39e83b8eed,
         type: 3}
       propertyPath: m_LocalPosition.x
