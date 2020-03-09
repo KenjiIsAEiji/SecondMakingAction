@@ -16,7 +16,7 @@ public class EnemyStateController : MonoBehaviour
 
     [Header("- 敵のヒットストップ設定 -")]
     [SerializeField] float HSScale = 0.1f;
-    [SerializeField] float HS_BaceTime = 1f;
+    //[SerializeField] float HS_BaceTime = 1f;
 
     [Header("- HPバー -")]
     [SerializeField] HealthBar healthBar;
@@ -70,24 +70,24 @@ public class EnemyStateController : MonoBehaviour
 
             case EnemyState.Move:
                 //ノックバックコルーチンを停止
-                StopCoroutine("HitStopEffect");
+                //StopCoroutine("HitStopEffect");
                 StopCoroutine("NoDamageTimer");
+
+                float diff = (transform.position - PlayerTransform.position).magnitude;
+                
+                //遷移条件
+                if (EnemyCurrentHealth <= 0)
+                {
+                    NowEnemyState = EnemyState.Dead;
+                }
+                else if (diff < attackDistance)
+                {
+                    NowEnemyState = EnemyState.Attack;
+                }
 
                 EnemyAgent.updateRotation = true;
 
                 EnemyAgent.SetDestination(PlayerTransform.position);
-
-                float diff = (transform.position - PlayerTransform.position).magnitude;
-
-                //遷移条件
-                if (EnemyCurrentHealth <= 0) 
-                { 
-                    NowEnemyState = EnemyState.Dead;
-                }
-                else if(diff < attackDistance)
-                {
-                    NowEnemyState = EnemyState.Attack;
-                }
 
                 break;
 
@@ -95,7 +95,7 @@ public class EnemyStateController : MonoBehaviour
                 EnemyAgent.ResetPath();
                 EnemyAgent.velocity = Vector3.zero;
                 EnemyAgent.updateRotation = false;
-                transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position),transform.up);
+                PlayerLookOn();
 
                 if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
                 {
@@ -108,7 +108,7 @@ public class EnemyStateController : MonoBehaviour
                 EnemyAgent.ResetPath();
 
                 EnemyAgent.updateRotation = false;
-                transform.rotation = Quaternion.LookRotation(-(transform.position - PlayerTransform.position), transform.up);
+                PlayerLookOn();
 
                 break;
 
@@ -127,6 +127,12 @@ public class EnemyStateController : MonoBehaviour
         EnemyAnimator.SetInteger("EnemyState", (int)NowEnemyState);
     }
 
+    private void PlayerLookOn()
+    {
+        Quaternion rot = Quaternion.LookRotation(-(transform.position - PlayerTransform.position), transform.up);
+        transform.rotation = Quaternion.AngleAxis(rot.eulerAngles.y, Vector3.up);
+    }
+
     /// <summary>
     /// ダメージ処理
     /// </summary>
@@ -134,7 +140,7 @@ public class EnemyStateController : MonoBehaviour
     /// <param name="damegeScale">モーションごとのダメージ倍率</param>
     public void Damage(float damegeValue,float damegeScale)
     {
-        if(NowEnemyState != EnemyState.KickBack && NowEnemyState != EnemyState.Dead)
+        if(NowEnemyState != EnemyState.Dead)
         {
             EnemyCurrentHealth -= damegeValue * damegeScale;
 

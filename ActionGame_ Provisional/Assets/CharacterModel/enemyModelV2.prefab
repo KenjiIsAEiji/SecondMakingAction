@@ -671,12 +671,11 @@ MonoBehaviour:
   EnemyMaxHealth: 200
   EnemyCurrentHealth: 0
   HSScale: 0.15
-  HS_BaceTime: 0.2
   healthBar: {fileID: 39599618}
   attackDistance: 1
   EnemyAttackPower: 10
   hand: {fileID: 3214614265047532345}
-  KickBackForce: 6.74
+  KickBackForce: 8.69
   KickBackTime: 0.6
   NowEnemyState: 0
 --- !u!1 &3214614265047532285
