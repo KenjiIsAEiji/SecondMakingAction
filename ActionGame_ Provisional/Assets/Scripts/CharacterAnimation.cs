@@ -50,22 +50,25 @@ public class CharacterAnimation : MonoBehaviour
             playerController.Attacking = true;
             animator.SetFloat("Speed", 0);
         }
-        
-        if (Input.GetMouseButtonDown(0) && playerController.MoveVecter.magnitude > 1f)
-        {
-            animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 1);
-        }
-        else if(Input.GetMouseButtonDown(0))
-        {
-            animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 0);
-        }
-        else if(Input.GetMouseButtonDown(1))
-        {
-            animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 2);
-        }
+
+        animator.SetBool("LightAttack", Input.GetMouseButton(0));
+        animator.SetBool("HeavyAttack", Input.GetMouseButton(1));
+
+        //if (Input.GetMouseButtonDown(0) && playerController.MoveVecter.magnitude > 1f)
+        //{
+        //    animator.SetTrigger("Attack");
+        //    animator.SetInteger("AttackType", 1);
+        //}
+        //else if(Input.GetMouseButtonDown(0))
+        //{
+        //    animator.SetTrigger("Attack");
+        //    animator.SetInteger("AttackType", 0);
+        //}
+        //else if(Input.GetMouseButtonDown(1))
+        //{
+        //    animator.SetTrigger("Attack");
+        //    animator.SetInteger("AttackType", 2);
+        //}
     }
 
     void AttackEnter(float motionScale)
