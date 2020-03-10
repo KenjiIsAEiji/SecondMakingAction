@@ -1206,14 +1206,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4018373117999120321}
-  m_LocalRotation: {x: 0.0000016408736, y: 1, z: 0.00000059977157, w: 0.000000013038513}
-  m_LocalPosition: {x: -0.00016, y: 0.00061, z: -0.00598}
-  m_LocalScale: {x: 0.00010970009, y: 0.00028690023, z: 0.0131151015}
+  m_LocalRotation: {x: -0.0016656333, y: 0.9959661, z: 0.04810146, w: -0.07573046}
+  m_LocalPosition: {x: -0.00093, y: 0.00078, z: -0.00432}
+  m_LocalScale: {x: 0.00010970009, y: 0.00028690023, z: 0.011412634}
   m_Children:
   - {fileID: 4018373119282531522}
   m_Father: {fileID: 6979465219395943355}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: -5.484, y: 188.726, z: -0.61}
 --- !u!33 &4018373117999120326
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1272,8 +1272,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5, y: 2.4641209, z: 0.81597054}
+  m_Center: {x: -0.00000049548436, y: -0.084636845, z: 0.116832316}
 --- !u!54 &4067775327038309851
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6486,10 +6486,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.21061756
+  m_Radius: 0.15895538
   m_Height: 1.7618036
   m_Direction: 1
-  m_Center: {x: 0.006070599, y: 0.8914499, z: 0}
+  m_Center: {x: 0.0054159607, y: 0.8914499, z: 6.1318797e-12}
 --- !u!54 &4018373119038278632
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6518,6 +6518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbe732bd1e2de045886fec924d20209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveVecter: {x: 0, y: 0, z: 0}
   Speed: 9
   TurnSpeed: 10
   moveMultiply: 10
@@ -6527,11 +6528,12 @@ MonoBehaviour:
   Attacking: 0
   IsGrounded: 0
   NowPlayerState: 0
-  PlayerMaxHealth: 100
+  PlayerMaxHealth: 250
   PlayerCurrentHealth: 0
   healthBar: {fileID: 0}
   kickBackStrength: 26.8
   effect: {fileID: 0}
+  AttackJump: 23.63
 --- !u!114 &4018373119038278645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6547,6 +6549,7 @@ MonoBehaviour:
   testEffect: {fileID: 4018373119282531521}
   swordCollider: {fileID: 4018373117999120324}
   NowMotionScale: 0
+  walksound: {fileID: 0}
 --- !u!1 &5078918846042600850
 GameObject:
   m_ObjectHideFlags: 0
