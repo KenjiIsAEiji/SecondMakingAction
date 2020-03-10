@@ -140,12 +140,15 @@ public class PlayerController : MonoBehaviour
     public void Damage(float damage, Vector3 AttackForce)
     {
         Debug.Log("player damage");
-        PlayerCurrentHealth -= damage;
-        kickBackDrection = AttackForce;
+        if (NowPlayerState != PlayerState.KickBack)
+        {
+            PlayerCurrentHealth -= damage;
+            healthBar.SetNowHealth(PlayerCurrentHealth);
+        }
 
-        healthBar.SetNowHealth(PlayerCurrentHealth);
         if (PlayerCurrentHealth <= PlayerMaxHealth / 3)
         {
+            kickBackDrection = AttackForce;
             StartCoroutine(KickBackTimer(0.5f));
         }
         else
