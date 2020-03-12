@@ -89,9 +89,25 @@ public class PlayerController : MonoBehaviour
                     PlayerMove(Vector3.zero);
                 }
 
+                if (Input.GetKey(KeyCode.LeftShift)) NowPlayerState = PlayerState.LongRange;
+
                 break;
 
             case PlayerState.LongRange:
+                StopCoroutine("kickBackTimer");
+
+                
+                if (!Attacking)
+                {
+                    LongRangeMove(MoveVecter);
+                }
+                else
+                {
+                    LongRangeMove(Vector3.zero);
+                }
+
+                if (!Input.GetKey(KeyCode.LeftShift)) NowPlayerState = PlayerState.NomalFight;
+
                 break;
 
             case PlayerState.KickBack:
@@ -116,6 +132,21 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
             playerRigidbody.AddForce(moveMultiply * ((camRotation * move) - playerRigidbody.velocity));
+        }
+        else
+        {
+            playerRigidbody.AddForce(Vector3.zero);
+        }
+    }
+
+    void LongRangeMove(Vector3 move)
+    {
+        if (IsGrounded)
+        {
+            transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
+
+            Vector3 _move = transform.TransformDirection(move);
+            playerRigidbody.AddForce(moveMultiply * (_move - playerRigidbody.velocity));
         }
         else
         {

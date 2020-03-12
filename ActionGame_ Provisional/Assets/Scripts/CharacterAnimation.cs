@@ -43,12 +43,18 @@ public class CharacterAnimation : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
         {
             playerController.Attacking = false;
-            animator.SetFloat("Speed", playerRigidbody.velocity.magnitude);
+            animator.SetFloat("SpeedX", playerRigidbody.velocity.magnitude);
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("LongRange Move Tree"))
+        {
+            playerController.Attacking = false;
+            animator.SetFloat("SpeedX", playerController.MoveVecter.x);
+            animator.SetFloat("SpeedZ", playerController.MoveVecter.z);
         }
         else
         {
             playerController.Attacking = true;
-            animator.SetFloat("Speed", 0);
+            animator.SetFloat("SpeedX", 0);
         }
 
         animator.SetBool("LightAttack", Input.GetMouseButton(0));
