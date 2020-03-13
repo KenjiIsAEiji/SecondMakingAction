@@ -153,7 +153,7 @@ public class EnemyStateController : MonoBehaviour
             else
             {
                 //StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale, 2)));
-                StartCoroutine(NoDamageTimer());
+                StartCoroutine(NoDamageTimer(damegeScale));
                 NowEnemyState = EnemyState.KickBack;
             }
             healthBar.SetNowHealth(EnemyCurrentHealth);
@@ -167,11 +167,11 @@ public class EnemyStateController : MonoBehaviour
         EnemyAgent.velocity = dir * KickBackForce;
     }
 
-    IEnumerator NoDamageTimer()
+    IEnumerator NoDamageTimer(float Scale)
     {
         KickBackMove();
 
-        yield return new WaitForSecondsRealtime(KickBackTime);
+        yield return new WaitForSecondsRealtime(KickBackTime * Scale);
 
         NowEnemyState = EnemyState.Move;
     }

@@ -8,8 +8,9 @@ public class CharacterAnimation : MonoBehaviour
     Rigidbody playerRigidbody;
     PlayerController playerController;
 
-    [Header("デバッグ用エフェクト")]
-    [SerializeField] GameObject testEffect;
+    [Header("攻撃時のエフェクト")]
+    [SerializeField] Transform SponeOrigin;
+    [SerializeField] GameObject AttackEffect;
 
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
@@ -80,8 +81,13 @@ public class CharacterAnimation : MonoBehaviour
     void AttackEnter(float motionScale)
     {
         Debug.Log("Attack Start");
-        testEffect.GetComponent<ParticleSystem>().Play();
+        //testEffect.GetComponent<ParticleSystem>().Play();
+        
         swordCollider.enabled = true;
+
+        GameObject obj = Instantiate(AttackEffect, SponeOrigin.position, swordCollider.gameObject.transform.rotation);
+
+        obj.transform.parent = this.transform;
 
         NowMotionScale = motionScale;
         playerController.AttackMove(motionScale);
@@ -90,7 +96,7 @@ public class CharacterAnimation : MonoBehaviour
     public void AttackExit()
     {
         Debug.Log("Attack End");
-        testEffect.GetComponent<ParticleSystem>().Stop();
+        //testEffect.GetComponent<ParticleSystem>().Stop();
         swordCollider.enabled = false;
 
         NowMotionScale = 0;
