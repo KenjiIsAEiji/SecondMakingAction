@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
 
-            Vector3 _move = transform.TransformDirection(move);
+            Vector3 _move = transform.TransformDirection(move / 2);
             playerRigidbody.AddForce(moveMultiply * (_move - playerRigidbody.velocity));
         }
         else

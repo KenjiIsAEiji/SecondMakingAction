@@ -15,8 +15,7 @@ public class CharacterAnimation : MonoBehaviour
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
 
-
-    public float NowMotionScale;
+    public float NowMotionScale = 0;
 
     [Header("足音")]
     public AudioClip walksound;
@@ -31,8 +30,6 @@ public class CharacterAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
 
         swordCollider.enabled = false;
-
-        NowMotionScale = 0;
 
         audiosource = GetComponent<AudioSource>();
 
@@ -84,13 +81,18 @@ public class CharacterAnimation : MonoBehaviour
         //testEffect.GetComponent<ParticleSystem>().Play();
         
         swordCollider.enabled = true;
-
-        GameObject obj = Instantiate(AttackEffect, SponeOrigin.position, swordCollider.gameObject.transform.rotation);
-
-        obj.transform.parent = this.transform;
-
         NowMotionScale = motionScale;
-        playerController.AttackMove(motionScale);
+
+        if((int)playerController.NowPlayerState == 2)
+        {
+            Instantiate(AttackEffect, SponeOrigin.position,Quaternion.identity);
+        }
+        else
+        {
+            playerController.AttackMove(NowMotionScale);
+            GameObject obj = Instantiate(AttackEffect, SponeOrigin.position, swordCollider.gameObject.transform.rotation);
+            obj.transform.parent = this.transform;
+        }
     }
 
     public void AttackExit()
