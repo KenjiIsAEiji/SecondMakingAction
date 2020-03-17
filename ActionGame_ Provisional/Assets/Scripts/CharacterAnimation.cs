@@ -12,6 +12,10 @@ public class CharacterAnimation : MonoBehaviour
     [SerializeField] Transform SponeOrigin;
     [SerializeField] GameObject AttackEffect;
 
+    [Header("遠距離攻撃")]
+    [SerializeField] GameObject SlashPrefab;
+    [SerializeField] float SlashSpeed = 20f;
+
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
 
@@ -83,9 +87,12 @@ public class CharacterAnimation : MonoBehaviour
         swordCollider.enabled = true;
         NowMotionScale = motionScale;
 
-        if((int)playerController.NowPlayerState == 2)
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("LongRangeMode"))
         {
-            Instantiate(AttackEffect, SponeOrigin.position,Quaternion.identity);
+            GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
+            SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed,ForceMode.Impulse);
+
+            Destroy(SlashObj, 10f);
         }
         else
         {

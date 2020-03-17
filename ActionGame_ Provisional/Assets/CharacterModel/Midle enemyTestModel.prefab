@@ -155,7 +155,7 @@ MonoBehaviour:
   healthBar: {fileID: 4644511982650482839}
   enemyShotShell: {fileID: 5727631614525184622}
   KickBackForce: 8
-  KickBackTime: 0.5
+  KickBackTime: 3
   NowEnemyState: 0
 --- !u!1 &972581232290430136
 GameObject:

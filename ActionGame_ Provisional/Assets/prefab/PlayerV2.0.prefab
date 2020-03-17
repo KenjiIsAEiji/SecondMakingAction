@@ -1236,13 +1236,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4018373117999120321}
-  m_LocalRotation: {x: -0.0016656333, y: 0.9959661, z: 0.04810146, w: -0.07573046}
-  m_LocalPosition: {x: -0.00093, y: 0.00078, z: -0.00432}
+  m_LocalRotation: {x: 0.0007622245, y: 0.998716, z: 0.048120312, w: -0.015819637}
+  m_LocalPosition: {x: -0.00036, y: 0.00112, z: -0.0043}
   m_LocalScale: {x: 0.00010970009, y: 0.00028690023, z: 0.011412634}
   m_Children: []
   m_Father: {fileID: 6979465219395943355}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -5.484, y: 188.726, z: -0.61}
+  m_LocalEulerAnglesHint: {x: -5.517, y: 181.81499, z: 0}
 --- !u!33 &4018373117999120326
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1807,6 +1807,9 @@ MonoBehaviour:
   SponeOrigin: {fileID: 627101091}
   AttackEffect: {fileID: 4158742562002712334, guid: f25b946f081dd9f4d8fbcee4ce10a2c4,
     type: 3}
+  SlashPrefab: {fileID: 554723190922670933, guid: 247ed0f0fdc149e44bd809bde656d252,
+    type: 3}
+  SlashSpeed: 20
   swordCollider: {fileID: 4018373117999120324}
   NowMotionScale: 0
   walksound: {fileID: 0}
