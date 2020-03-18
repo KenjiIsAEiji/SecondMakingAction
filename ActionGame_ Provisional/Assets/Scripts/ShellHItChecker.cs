@@ -23,7 +23,8 @@ public class ShellHItChecker : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerController>().Damage(AttackPower, collision.contacts[0].normal);
-            Destroy(this.gameObject);
+            Instantiate(hitEffect, collision.contacts[0].point, Quaternion.identity);
         }
+        Destroy(this.gameObject);
     }
 }

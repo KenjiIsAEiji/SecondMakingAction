@@ -4,30 +4,21 @@ using UnityEngine;
 
 public class HitSlash : MonoBehaviour
 {
-    [SerializeField] float AttackPower = 25f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] float AttackPower = 5f;
+    [SerializeField] GameObject HitEffect;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyStateController>().Damage(AttackPower, 1f);
+            other.gameObject.GetComponent<EnemyStateController>().Damage(AttackPower, 5f);
+            Instantiate(HitEffect, other.ClosestPointOnBounds(this.transform.position), Quaternion.identity);
         }
 
         if (other.gameObject.CompareTag("MidleEnemy"))
         {
-            other.gameObject.GetComponent<EnemyMidleController>().Damage(AttackPower, 1f);
+            other.gameObject.GetComponent<EnemyMidleController>().Damage(AttackPower, 5f);
+            Instantiate(HitEffect, other.ClosestPointOnBounds(this.transform.position), Quaternion.identity);
         }
     }
 }

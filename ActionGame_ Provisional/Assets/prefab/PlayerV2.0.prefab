@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25f58b8eae8d414db4d9cefb5a92dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 5229575566799460418, guid: 55886e1836f1b7043848ce610d3e89c6, type: 3}
+  effect: {fileID: 2020732748657587891, guid: c1d91138d81816a448c6f0f3d5361805, type: 3}
   AttackValue: 10
   characterAnimation: {fileID: 4018373119038278645}
 --- !u!1 &4018373118385092340
@@ -1809,7 +1809,7 @@ MonoBehaviour:
     type: 3}
   SlashPrefab: {fileID: 554723190922670933, guid: 247ed0f0fdc149e44bd809bde656d252,
     type: 3}
-  SlashSpeed: 20
+  SlashSpeed: 30
   swordCollider: {fileID: 4018373117999120324}
   NowMotionScale: 0
   walksound: {fileID: 0}

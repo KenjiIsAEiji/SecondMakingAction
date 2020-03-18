@@ -92,7 +92,7 @@ public class CharacterAnimation : MonoBehaviour
             GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
             SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed,ForceMode.Impulse);
 
-            Destroy(SlashObj, 10f);
+            Destroy(SlashObj, 5f);
         }
         else
         {

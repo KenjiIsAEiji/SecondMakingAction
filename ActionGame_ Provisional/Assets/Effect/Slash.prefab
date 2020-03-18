@@ -76,7 +76,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7e1632f94be4941a814eedea727b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackPower: 25
+  AttackPower: 5
+  HitEffect: {fileID: 2020732748657587891, guid: c1d91138d81816a448c6f0f3d5361805,
+    type: 3}
 --- !u!1 &556278575374935976
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,7 +997,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 8
       minScalar: 0
       maxCurve:
         serializedVersion: 2

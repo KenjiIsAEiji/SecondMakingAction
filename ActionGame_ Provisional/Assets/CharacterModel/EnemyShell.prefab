@@ -124,4 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackPower: 5
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 6578024271835331717, guid: 7e5d4830c8823d94db6c4b9f5baa38f3,
+    type: 3}
