@@ -240,7 +240,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1524820287654184531}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 55
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -376,7 +376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524820289007613732}
   m_LocalRotation: {x: 0.000000007450578, y: -0, z: 0.000000028870986, w: 1}
-  m_LocalPosition: {x: 0.4100001, y: -0.16999996, z: -3.4500022}
+  m_LocalPosition: {x: 0.41000015, y: -0.16999996, z: -3.4500022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1524820287654184531}
@@ -407,7 +407,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 55
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -647,14 +647,6 @@ MonoBehaviour:
     m_VirtualCamera: {fileID: 1524820287544256660}
     m_ActivateAfter: 0
     m_MinDuration: 0
-  - m_FullHash: -1575528410
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: -411843387
-    m_VirtualCamera: {fileID: 1716718359557890210}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
   - m_FullHash: -1869778667
     m_VirtualCamera: {fileID: 1524820287544256660}
     m_ActivateAfter: 0
@@ -663,36 +655,8 @@ MonoBehaviour:
     m_VirtualCamera: {fileID: 1524820287544256660}
     m_ActivateAfter: 0
     m_MinDuration: 0
-  - m_FullHash: -375629420
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: -1429403786
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: -573949984
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: -681701645
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: 1314348873
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: 961572831
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: -1334733098
-    m_VirtualCamera: {fileID: 1524820287544256660}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: 868505292
-    m_VirtualCamera: {fileID: 1524820287544256660}
+  - m_FullHash: 671732184
+    m_VirtualCamera: {fileID: 1716718359557890210}
     m_ActivateAfter: 0
     m_MinDuration: 0
   m_DefaultBlend:
@@ -718,20 +682,38 @@ MonoBehaviour:
     m_ParentHash: 756556552
   - m_Hash: -375629420
     m_ParentHash: -1543828338
-  - m_Hash: -1429403786
+  - m_Hash: 868505292
     m_ParentHash: -1543828338
   - m_Hash: -573949984
     m_ParentHash: -1543828338
-  - m_Hash: -681701645
-    m_ParentHash: -1543828338
-  - m_Hash: 1314348873
-    m_ParentHash: -1543828338
-  - m_Hash: 961572831
-    m_ParentHash: -1543828338
   - m_Hash: -1334733098
     m_ParentHash: -1543828338
-  - m_Hash: 868505292
+  - m_Hash: -1488157828
     m_ParentHash: -1543828338
+  - m_Hash: -800345110
+    m_ParentHash: -1543828338
+  - m_Hash: 1311712841
+    m_ParentHash: -1543828338
+  - m_Hash: 1044763334
+    m_ParentHash: -1543828338
+  - m_Hash: -1429403786
+    m_ParentHash: -1543828338
+  - m_Hash: 671732184
+    m_ParentHash: 756556552
+  - m_Hash: -1324171128
+    m_ParentHash: 671732184
+  - m_Hash: 348516243
+    m_ParentHash: -1324171128
+  - m_Hash: 1838796962
+    m_ParentHash: -1324171128
+  - m_Hash: -537706596
+    m_ParentHash: -1324171128
+  - m_Hash: 416848704
+    m_ParentHash: -1324171128
+  - m_Hash: -1127987802
+    m_ParentHash: -1324171128
+  - m_Hash: -1934750243
+    m_ParentHash: 671732184
 --- !u!1 &6555854560800543450
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +741,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6555854560800543450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0, z: -9.9}
+  m_LocalPosition: {x: 0.48, y: -0.2, z: -2.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6933393455582045129}
@@ -787,7 +769,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1524820287654184531}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 32
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
