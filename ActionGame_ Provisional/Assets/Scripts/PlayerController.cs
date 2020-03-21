@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
         float InputX = Input.GetAxis("Horizontal");
         float InputZ = Input.GetAxis("Vertical");
 
+        MoveVecter = new Vector3(InputX * Speed, 0, InputZ * Speed);
+
         switch (NowPlayerState)
         {
             case PlayerState.Ready:
@@ -80,23 +82,37 @@ public class PlayerController : MonoBehaviour
 
                 if (!Attacking)
                 {
-                    MoveVecter = new Vector3(InputX * Speed, 0, InputZ * Speed);
+                    PlayerMove(MoveVecter);
                 }
                 else
                 {
-                    MoveVecter = Vector3.zero;
+                    PlayerMove(Vector3.zero);
                 }
 
-                NomalMove(MoveVecter);
+                if (Input.GetKey(KeyCode.LeftShift)) NowPlayerState = PlayerState.LongRange;
 
                 break;
 
             case PlayerState.LongRange:
+                StopCoroutine("kickBackTimer");
+
+                
+                if (!Attacking)
+                {
+                    LongRangeMove(MoveVecter);
+                }
+                else
+                {
+                    LongRangeMove(Vector3.zero);
+                }
+
+                if (!Input.GetKey(KeyCode.LeftShift)) NowPlayerState = PlayerState.NomalFight;
+
                 break;
 
             case PlayerState.KickBack:
 
-                NomalMove(Vector3.zero);
+                PlayerMove(Vector3.zero);
 
                 break;
 
@@ -107,23 +123,14 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetInteger("PlayerState", (int)NowPlayerState);
     }
 
-    void NomalMove(Vector3 move)
+    void PlayerMove(Vector3 move)
     {
-        Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
-
-        if (move.magnitude > 0)
-        {
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.LookRotation(camRotation * move),
-                TurnSpeed
-            );
-        }
-
+        SetPlayerDir(move);
         IsGrounded = Physics.Raycast(RayOrigin.position, -RayOrigin.up, RayRange);
 
         if (IsGrounded)
         {
+            Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
             playerRigidbody.AddForce(moveMultiply * ((camRotation * move) - playerRigidbody.velocity));
         }
         else
@@ -132,20 +139,53 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void LongRangeMove(Vector3 move)
+    {
+        if (IsGrounded)
+        {
+            transform.rotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
+
+            Vector3 _move = transform.TransformDirection(move / 2);
+            playerRigidbody.AddForce(moveMultiply * (_move - playerRigidbody.velocity));
+        }
+        else
+        {
+            playerRigidbody.AddForce(Vector3.zero);
+        }
+    }
+
+    void SetPlayerDir(Vector3 dir)
+    {
+        Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
+
+        if (dir.magnitude > 0)
+        {
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(camRotation * dir),
+                TurnSpeed
+            );
+        }
+    }
+
     public void AttackMove(float weight)
     {
+        SetPlayerDir(MoveVecter);
         playerRigidbody.AddForce(transform.forward * AttackJump * weight ,ForceMode.Impulse);
     }
 
     public void Damage(float damage, Vector3 AttackForce)
     {
         Debug.Log("player damage");
-        PlayerCurrentHealth -= damage;
-        kickBackDrection = AttackForce;
+        if (NowPlayerState != PlayerState.KickBack)
+        {
+            PlayerCurrentHealth -= damage;
+            healthBar.SetNowHealth(PlayerCurrentHealth);
+        }
 
-        healthBar.SetNowHealth(PlayerCurrentHealth);
         if (PlayerCurrentHealth <= PlayerMaxHealth / 3)
         {
+            kickBackDrection = AttackForce;
             StartCoroutine(KickBackTimer(0.5f));
         }
         else

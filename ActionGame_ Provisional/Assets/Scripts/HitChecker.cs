@@ -45,12 +45,16 @@ public class HitChecker : MonoBehaviour
         {
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
 
-            if(collision.gameObject.GetComponent<EnemyStateController>().EnemyCurrentHealth >= 0)
-            {
-                Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
-            }
-
             collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue,characterAnimation.NowMotionScale);
+
+            Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+        }
+        else if (collision.gameObject.CompareTag("MidleEnemy"))
+        {
+            collision.gameObject.GetComponent<EnemyMidleController>().Damage(AttackValue, characterAnimation.NowMotionScale);
+
+            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
+            Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
         }
     }
 }

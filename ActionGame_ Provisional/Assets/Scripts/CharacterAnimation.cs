@@ -8,14 +8,18 @@ public class CharacterAnimation : MonoBehaviour
     Rigidbody playerRigidbody;
     PlayerController playerController;
 
-    [Header("デバッグ用エフェクト")]
-    [SerializeField] GameObject testEffect;
+    [Header("攻撃時のエフェクト")]
+    [SerializeField] Transform SponeOrigin;
+    [SerializeField] GameObject AttackEffect;
+
+    [Header("遠距離攻撃")]
+    [SerializeField] GameObject SlashPrefab;
+    [SerializeField] float SlashSpeed = 20f;
 
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
 
-
-    public float NowMotionScale;
+    public float NowMotionScale = 0;
 
     [Header("足音")]
     public AudioClip walksound;
@@ -31,8 +35,6 @@ public class CharacterAnimation : MonoBehaviour
 
         swordCollider.enabled = false;
 
-        NowMotionScale = 0;
-
         audiosource = GetComponent<AudioSource>();
 
     }
@@ -43,45 +45,67 @@ public class CharacterAnimation : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTree"))
         {
             playerController.Attacking = false;
-            animator.SetFloat("Speed", playerRigidbody.velocity.magnitude);
+            animator.SetFloat("SpeedX", playerRigidbody.velocity.magnitude);
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("LongRange Move Tree"))
+        {
+            playerController.Attacking = false;
+            animator.SetFloat("SpeedX", playerController.MoveVecter.x);
+            animator.SetFloat("SpeedZ", playerController.MoveVecter.z);
         }
         else
         {
             playerController.Attacking = true;
-            animator.SetFloat("Speed", 0);
+            animator.SetFloat("SpeedX", 0);
         }
-        
-        if (Input.GetMouseButtonDown(0) && playerController.MoveVecter.magnitude > 1f)
-        {
-            animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 1);
-        }
-        else if(Input.GetMouseButtonDown(0))
-        {
-            animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 0);
-        }
-        else if(Input.GetMouseButtonDown(1))
-        {
-            animator.SetTrigger("Attack");
-            animator.SetInteger("AttackType", 2);
-        }
+
+        animator.SetBool("LightAttack", Input.GetMouseButton(0));
+        animator.SetBool("HeavyAttack", Input.GetMouseButton(1));
+
+        //if (Input.GetMouseButtonDown(0) && playerController.MoveVecter.magnitude > 1f)
+        //{
+        //    animator.SetTrigger("Attack");
+        //    animator.SetInteger("AttackType", 1);
+        //}
+        //else if(Input.GetMouseButtonDown(0))
+        //{
+        //    animator.SetTrigger("Attack");
+        //    animator.SetInteger("AttackType", 0);
+        //}
+        //else if(Input.GetMouseButtonDown(1))
+        //{
+        //    animator.SetTrigger("Attack");
+        //    animator.SetInteger("AttackType", 2);
+        //}
     }
 
     void AttackEnter(float motionScale)
     {
         Debug.Log("Attack Start");
-        testEffect.GetComponent<ParticleSystem>().Play();
+        //testEffect.GetComponent<ParticleSystem>().Play();
+        
         swordCollider.enabled = true;
-
         NowMotionScale = motionScale;
-        playerController.AttackMove(motionScale);
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("LongRangeMode"))
+        {
+            GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
+            SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed,ForceMode.Impulse);
+
+            Destroy(SlashObj, 5f);
+        }
+        else
+        {
+            playerController.AttackMove(NowMotionScale);
+            GameObject obj = Instantiate(AttackEffect, SponeOrigin.position, swordCollider.gameObject.transform.rotation);
+            obj.transform.parent = this.transform;
+        }
     }
 
     public void AttackExit()
     {
         Debug.Log("Attack End");
-        testEffect.GetComponent<ParticleSystem>().Stop();
+        //testEffect.GetComponent<ParticleSystem>().Stop();
         swordCollider.enabled = false;
 
         NowMotionScale = 0;

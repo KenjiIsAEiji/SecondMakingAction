@@ -6,13 +6,12 @@ public class EnemyShotShell : MonoBehaviour
 {
     public GameObject enemyShellPrefab;
     public float shotSpeed;
-    public Transform target;
     public float rate;
-    public float shootInterval=0;
+    float shootInterval=0;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("Shoot");
+
     }
 
     // Update is called once per frame
@@ -27,13 +26,13 @@ public class EnemyShotShell : MonoBehaviour
     }
     private void Shoot()
     {
-            GameObject enemyShell = Instantiate(enemyShellPrefab, transform.position, Quaternion.identity);
+        GameObject enemyShell = Instantiate(enemyShellPrefab, transform.position, Quaternion.identity);
 
-            Rigidbody enemyShellRb = enemyShell.GetComponent<Rigidbody>();
+        Rigidbody enemyShellRb = enemyShell.GetComponent<Rigidbody>();
 
-            // forwardはZ軸方向（青軸方向）・・・＞この方向に力を加える。
-            enemyShellRb.AddForce(transform.forward * shotSpeed);
+        // forwardはZ軸方向（青軸方向）・・・＞この方向に力を加える。
+        enemyShellRb.AddForce(transform.forward * shotSpeed, ForceMode.Impulse);
 
-            Destroy(enemyShell, 3.0f);
+        Destroy(enemyShell, 3.0f);
     }
 }

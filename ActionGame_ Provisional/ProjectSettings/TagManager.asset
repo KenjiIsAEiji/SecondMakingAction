@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Stage
+  - MidleEnemy
   layers:
   - Default
   - TransparentFX
