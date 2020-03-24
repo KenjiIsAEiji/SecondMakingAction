@@ -6,35 +6,44 @@ using DG.Tweening;
 
 public class HealthBar : MonoBehaviour
 {
-    public Slider slider;
-
     RectTransform rectTransform;
 
     [SerializeField] Gradient colorGradient;
     [SerializeField] Image fill;
-    [SerializeField] Color FlshColor;
+
+    [SerializeField] Image RightFill;
+
+    [SerializeField] Color endColor;
     [SerializeField] Image animatedBorder;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
-
-    public void SetMaxHealth(float health)
+    private void Start()
     {
-        slider.maxValue = health;
-        slider.value = health;
         fill.color = colorGradient.Evaluate(1f);
+
+        if (RightFill != null)
+        {
+            RightFill.color = colorGradient.Evaluate(1f);
+        }
     }
 
-    public void SetNowHealth(float health)
+    public void SetNowHealth(float ratioOfHealth)
     {
-        slider.value = health;
-        fill.color = colorGradient.Evaluate(slider.normalizedValue);
+        fill.color = colorGradient.Evaluate(ratioOfHealth);
+        fill.fillAmount = ratioOfHealth;
+
+        if(RightFill != null)
+        {
+            RightFill.color = colorGradient.Evaluate(ratioOfHealth);
+            RightFill.fillAmount = ratioOfHealth;
+        }
 
         if (animatedBorder != null)
         {
-            rectTransform.DOShakePosition(1f, 10f);
+            rectTransform.DOShakePosition(1f, 20f);
 
             Sequence sequence = DOTween.Sequence();
 
@@ -47,7 +56,7 @@ public class HealthBar : MonoBehaviour
             );
 
             sequence.Play().OnComplete(() => {
-                animatedBorder.color = FlshColor;
+                animatedBorder.color = endColor;
                 animatedBorder.rectTransform.localScale = Vector3.one;
             });
         }

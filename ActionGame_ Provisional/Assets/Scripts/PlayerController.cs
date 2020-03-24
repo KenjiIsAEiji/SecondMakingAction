@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         KickBack = 3,
         Dead = 4
     }
+
     [Header("- Playerの状態 -")]
     public PlayerState NowPlayerState;
 
@@ -60,8 +61,6 @@ public class PlayerController : MonoBehaviour
 
         NowPlayerState = PlayerState.NomalFight;
         PlayerCurrentHealth = PlayerMaxHealth;
-
-        healthBar.SetMaxHealth(PlayerMaxHealth);
     }
 
     // Update is called once per frame
@@ -180,7 +179,7 @@ public class PlayerController : MonoBehaviour
         if (NowPlayerState != PlayerState.KickBack)
         {
             PlayerCurrentHealth -= damage;
-            healthBar.SetNowHealth(PlayerCurrentHealth);
+            healthBar.SetNowHealth(PlayerCurrentHealth / PlayerMaxHealth);
         }
 
         if (PlayerCurrentHealth <= PlayerMaxHealth / 3)

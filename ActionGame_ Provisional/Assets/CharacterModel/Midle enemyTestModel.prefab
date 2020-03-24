@@ -200,7 +200,7 @@ MonoBehaviour:
   EnemyMaxHealth: 100
   EnemyCurrentHealth: 100
   HSScale: 0.1
-  healthBar: {fileID: 4644511982650482839}
+  healthBar: {fileID: 0}
   enemyShotShell: {fileID: 1167683177}
   KickBackForce: 8
   KickBackTime: 3
@@ -291,6 +291,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 972581231409735237}
     m_Modifications:
+    - target: {fileID: 8139310066401622684, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: animatedBorder
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8139310066401622687, guid: 2ec56fae6a7c3e84180195b1795608c1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -469,7 +474,12 @@ PrefabInstance:
     - target: {fileID: 8139310067305049165, guid: 2ec56fae6a7c3e84180195b1795608c1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.41999817
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139310067305049165, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ec56fae6a7c3e84180195b1795608c1, type: 3}
@@ -479,15 +489,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3494859744459119115}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4644511982650482839 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8139310066401622684, guid: 2ec56fae6a7c3e84180195b1795608c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 3494859744459119115}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a07d7ba89cec28947a0f367876d1340b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -49,7 +49,6 @@ public class EnemyMidleController : MonoBehaviour
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         EnemyCurrentHealth = EnemyMaxHealth;
-        healthBar.SetMaxHealth(EnemyCurrentHealth);
 
         EnemyAgent = GetComponent<NavMeshAgent>();
         //EnemyAnimator = GetComponent<Animator>();
@@ -153,7 +152,7 @@ public class EnemyMidleController : MonoBehaviour
                 StartCoroutine(NoDamageTimer());
                 NowEnemyState = EnemyState.KickBack;
             }
-            healthBar.SetNowHealth(EnemyCurrentHealth);
+            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth);
         }
     }
     void KickBackMove()

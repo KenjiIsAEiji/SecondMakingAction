@@ -53,7 +53,6 @@ public class EnemyStateController : MonoBehaviour
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         EnemyCurrentHealth = EnemyMaxHealth;
-        healthBar.SetMaxHealth(EnemyCurrentHealth);
 
         EnemyAgent = GetComponent<NavMeshAgent>();
         EnemyAnimator = GetComponent<Animator>();
@@ -156,7 +155,7 @@ public class EnemyStateController : MonoBehaviour
                 StartCoroutine(NoDamageTimer(damegeScale));
                 NowEnemyState = EnemyState.KickBack;
             }
-            healthBar.SetNowHealth(EnemyCurrentHealth);
+            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth);
         }
     }
 
