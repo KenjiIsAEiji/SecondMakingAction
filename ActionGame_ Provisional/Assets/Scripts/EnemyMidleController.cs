@@ -21,7 +21,7 @@ public class EnemyMidleController : MonoBehaviour
     [SerializeField] HealthBar healthBar;
 
     [Header("- 敵からの遠距攻撃用 -")]
-    [SerializeField] EnemyShotShell enemyShotShell;
+    [SerializeField] GameObject enemyShotShell;
     //[SerializeField] float EnemyAttackPower = 10;
 
     [Header("- ノックバックの設定 -")]
@@ -49,7 +49,6 @@ public class EnemyMidleController : MonoBehaviour
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         EnemyCurrentHealth = EnemyMaxHealth;
-        healthBar.SetMaxHealth(EnemyCurrentHealth);
 
         EnemyAgent = GetComponent<NavMeshAgent>();
         //EnemyAnimator = GetComponent<Animator>();
@@ -118,7 +117,7 @@ public class EnemyMidleController : MonoBehaviour
                 break;
         }
 
-        enemyShotShell.enabled = (NowEnemyState == EnemyState.Attack);
+        enemyShotShell.SetActive(NowEnemyState == EnemyState.Attack);
 
         //EnemyAnimator.SetFloat("MoveSpeed", EnemyAgent.velocity.magnitude);
         //EnemyAnimator.SetInteger("EnemyState", (int)NowEnemyState);
@@ -153,7 +152,7 @@ public class EnemyMidleController : MonoBehaviour
                 StartCoroutine(NoDamageTimer());
                 NowEnemyState = EnemyState.KickBack;
             }
-            healthBar.SetNowHealth(EnemyCurrentHealth);
+            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth);
         }
     }
     void KickBackMove()
