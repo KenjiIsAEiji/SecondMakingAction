@@ -262,7 +262,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.57
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -285,7 +285,7 @@ MonoBehaviour:
   attackDistance: 1
   EnemyAttackPower: 10
   hand: {fileID: 3214614265047532345}
-  KickBackForce: 8
+  KickBackForce: 5.03
   KickBackTime: 0.5
   NowEnemyState: 0
 --- !u!1 &3214614265047532285
@@ -1968,6 +1968,66 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3214614265047047963}
     m_Modifications:
+    - target: {fileID: 1688327249041979204, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_FillOrigin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688327249041979204, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924215843660481659, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: animatedBorder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924215843660481659, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: DamageColor.r
+      value: 0.7764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924215843660481659, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: DamageColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924215843660481659, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: DamageColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924215843660481659, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: DamageColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924215843660481659, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: BackGroundBar
+      value: 
+      objectReference: {fileID: 3540577779167275005}
+    - target: {fileID: 4891045449374621156, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -2.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891045449374621156, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891045449374621156, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.019996643
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891045449374621156, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.06000042
+      objectReference: {fileID: 0}
     - target: {fileID: 5132345705876465123, guid: 2ec56fae6a7c3e84180195b1795608c1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1988,6 +2048,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 19.77
       objectReference: {fileID: 0}
+    - target: {fileID: 8139310065858887302, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139310065858887302, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: acfc314f747513a4e9ed3c67e3d171a7,
+        type: 3}
     - target: {fileID: 8139310066614366897, guid: 2ec56fae6a7c3e84180195b1795608c1,
         type: 3}
       propertyPath: m_RenderMode
@@ -2118,6 +2189,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 8139310067305049154, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139310067305049165, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00041389465
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139310067305049165, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -2.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139310067305049165, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139310067305049165, guid: 2ec56fae6a7c3e84180195b1795608c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.019996643
+      objectReference: {fileID: 0}
     - target: {fileID: 8370809691869204427, guid: 2ec56fae6a7c3e84180195b1795608c1,
         type: 3}
       propertyPath: m_Color.a
@@ -2141,5 +2237,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a07d7ba89cec28947a0f367876d1340b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3540577779167275005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1688327249041979204, guid: 2ec56fae6a7c3e84180195b1795608c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2759734651301548217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
