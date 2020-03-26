@@ -3616,6 +3616,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyModelV2
       objectReference: {fileID: 0}
+    - target: {fileID: 3214614265047532283, guid: 1136f9e031ea7824a8475c39e83b8eed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1136f9e031ea7824a8475c39e83b8eed, type: 3}
 --- !u!43 &917737521
@@ -3866,6 +3871,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyModelV2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3214614265047532283, guid: 1136f9e031ea7824a8475c39e83b8eed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1136f9e031ea7824a8475c39e83b8eed, type: 3}
 --- !u!1001 &1154426868
@@ -3934,6 +3944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Midle enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 972581231409735262, guid: faa4fd9ae5ab5d841a816ebe9fdf6e12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa4fd9ae5ab5d841a816ebe9fdf6e12, type: 3}

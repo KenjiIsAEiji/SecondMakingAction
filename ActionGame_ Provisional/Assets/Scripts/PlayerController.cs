@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
         NomalFight = 1,
         LongRange = 2,
         KickBack = 3,
-        Dead = 4
+        Shield = 4,
+        Dead = 5
     }
 
     [Header("- Playerの状態 -")]
@@ -113,6 +114,9 @@ public class PlayerController : MonoBehaviour
 
                 PlayerMove(Vector3.zero);
 
+                break;
+
+            case PlayerState.Shield:
                 break;
 
             case PlayerState.Dead:
