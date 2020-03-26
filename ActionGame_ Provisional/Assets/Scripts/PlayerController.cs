@@ -21,6 +21,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform RayOrigin;
     [SerializeField] float RayRange = 10;
 
+    [Header("- Playerの状態 -")]
+    public PlayerState NowPlayerState;
+
+    [Header("- PlayerのLP -")]
+    public float PlayerMaxLP = 100f;
+    public float PlayerCurrentLP;
+    [SerializeField] HealthBar healthBar;
+
+    [Header("- ノックバック -")]
+    [SerializeField] float kickBackStrength = 2f;
+    private Vector3 kickBackDrection;
+    [SerializeField] CamEffect effect;
+
+    [Header("- 攻撃時の移動 -")]
+    [SerializeField] float AttackJump = 20f;
+
+    [Header("シールド展開時")]
+    [SerializeField] GameObject ShieldModel;
+    [SerializeField] float MaxShieldHealth = 100;
+    [SerializeField] float ShieldCurrentHealth;
+    [SerializeField] float ShieldCreate = 50;
+    [SerializeField] bool ShieldBreak = false;
+
     public bool Attacking = false;
     public bool IsGrounded;
 
@@ -36,23 +59,6 @@ public class PlayerController : MonoBehaviour
         Dead = 5
     }
 
-    [Header("- Playerの状態 -")]
-    public PlayerState NowPlayerState;
-
-    [Header("- PlayerのHP -")]
-    public float PlayerMaxHealth = 100f;
-    public float PlayerCurrentHealth;
-    [SerializeField] HealthBar healthBar;
-
-    [Header("- ノックバック -")]
-    [SerializeField] float kickBackStrength = 2f;
-    private Vector3 kickBackDrection;
-    [SerializeField] CamEffect effect;
-
-    [Header("- 攻撃時の移動 -")]
-    [SerializeField] float AttackJump = 20f;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +67,8 @@ public class PlayerController : MonoBehaviour
         IsGrounded = false;
 
         NowPlayerState = PlayerState.NomalFight;
-        PlayerCurrentHealth = PlayerMaxHealth;
+        PlayerCurrentLP = PlayerMaxLP;
+        ShieldCurrentHealth = 0;
     }
 
     // Update is called once per frame
@@ -79,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.NomalFight:
                 StopCoroutine("kickBackTimer");
+                ShieldBreak = false;
 
                 if (!Attacking)
                 {
@@ -91,12 +99,14 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.LeftShift)) NowPlayerState = PlayerState.LongRange;
 
+                if (Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.Shield;
+
                 break;
 
             case PlayerState.LongRange:
                 StopCoroutine("kickBackTimer");
+                ShieldBreak = false;
 
-                
                 if (!Attacking)
                 {
                     LongRangeMove(MoveVecter);
@@ -108,24 +118,42 @@ public class PlayerController : MonoBehaviour
 
                 if (!Input.GetKey(KeyCode.LeftShift)) NowPlayerState = PlayerState.NomalFight;
 
+                if (Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.Shield;
+
                 break;
 
             case PlayerState.KickBack:
-
+                ShieldBreak = false;
                 PlayerMove(Vector3.zero);
 
                 break;
 
             case PlayerState.Shield:
+                PlayerMove(MoveVecter / 2);
+
+                if(ShieldCurrentHealth <= 0 && !ShieldBreak)
+                {
+                    UsingLP(ShieldCreate);
+                    ShieldCurrentHealth = MaxShieldHealth;
+                }
+
+                if (!Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.NomalFight;
+
                 break;
 
             case PlayerState.Dead:
                 break;
         }
 
+        ShieldModel.SetActive(NowPlayerState == PlayerState.Shield && ShieldCurrentHealth > 0.0f);
+
         playerAnimator.SetInteger("PlayerState", (int)NowPlayerState);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="move"></param>
     void PlayerMove(Vector3 move)
     {
         SetPlayerDir(move);
@@ -142,6 +170,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="move"></param>
     void LongRangeMove(Vector3 move)
     {
         if (IsGrounded)
@@ -157,6 +189,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
     void SetPlayerDir(Vector3 dir)
     {
         Quaternion camRotation = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0);
@@ -171,22 +207,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="weight"></param>
     public void AttackMove(float weight)
     {
         SetPlayerDir(MoveVecter);
         playerRigidbody.AddForce(transform.forward * AttackJump * weight ,ForceMode.Impulse);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="AttackForce"></param>
     public void Damage(float damage, Vector3 AttackForce)
     {
         Debug.Log("player damage");
-        if (NowPlayerState != PlayerState.KickBack)
+        
+        if (NowPlayerState == PlayerState.Shield && ShieldCurrentHealth > 0.0f)
         {
-            PlayerCurrentHealth -= damage;
-            healthBar.SetNowHealth(PlayerCurrentHealth / PlayerMaxHealth);
+            ShieldCurrentHealth -= damage;
+            if (ShieldCurrentHealth <= 0.0f) ShieldBreak = true;
+        }
+        else if(NowPlayerState != PlayerState.KickBack)
+        {
+            PlayerCurrentLP -= damage;
+            healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP);
         }
 
-        if (PlayerCurrentHealth <= PlayerMaxHealth / 3)
+        if (PlayerCurrentLP <= PlayerMaxLP / 3)
         {
             kickBackDrection = AttackForce;
             StartCoroutine(KickBackTimer(0.5f));
@@ -197,6 +248,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="usePoint"></param>
+    public void UsingLP(float usePoint)
+    {
+        PlayerCurrentLP -= usePoint;
+        healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="waitTime"></param>
+    /// <returns></returns>
     IEnumerator DamageEffect(float waitTime)
     {
         effect.DamageEffect(1);
@@ -206,6 +272,11 @@ public class PlayerController : MonoBehaviour
         effect.DamageEffect(0);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="backTime"></param>
+    /// <returns></returns>
     IEnumerator KickBackTimer(float backTime)
     {
         NowPlayerState = PlayerState.KickBack;
@@ -219,6 +290,10 @@ public class PlayerController : MonoBehaviour
         effect.KickBackEffect(0);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="move"></param>
     void KickBackMove(Vector3 move)
     {
         transform.rotation = Quaternion.LookRotation(-move,transform.up);
