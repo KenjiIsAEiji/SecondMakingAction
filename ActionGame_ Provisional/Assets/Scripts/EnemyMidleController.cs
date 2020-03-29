@@ -152,7 +152,7 @@ public class EnemyMidleController : MonoBehaviour
                 StartCoroutine(NoDamageTimer());
                 NowEnemyState = EnemyState.KickBack;
             }
-            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth);
+            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth,true);
         }
     }
     void KickBackMove()

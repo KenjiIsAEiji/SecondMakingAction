@@ -14,13 +14,15 @@ public class HealthBar : MonoBehaviour
 
     [SerializeField] Image BackGroundBar;
     [SerializeField] Color DamageColor;
+    [SerializeField] Color UseLPColor;
 
     [Header("右側バー")]
     [SerializeField] Image RightFill;
     [SerializeField] Image BackGroundBarRight;
 
     [Header("アニメーションするボーダーライン")]
-    [SerializeField] Color ABEndColor;
+    [SerializeField] Color DamageBorder;
+    [SerializeField] Color UseLPBorder;
     [SerializeField] Image animatedBorder;
 
     [Header("パーセンテージ表示")]
@@ -40,21 +42,41 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void SetNowHealth(float ratioOfHealth)
+    public void SetNowHealth(float ratioOfHealth,bool atDamage)
     {
         fill.color = colorGradient.Evaluate(ratioOfHealth);
         fill.fillAmount = ratioOfHealth;
-
-        BackGroundBar.color = DamageColor;
-        BackGroundBar.DOFillAmount(ratioOfHealth, 1f).SetEase(Ease.InQuart);
 
         if(RightFill != null)
         {
             RightFill.color = colorGradient.Evaluate(ratioOfHealth);
             RightFill.fillAmount = ratioOfHealth;
+        }
 
+        if (atDamage)
+        {
+            DamageAnimation(ratioOfHealth);
+        }
+        else
+        {
+            UseLPAnimation(ratioOfHealth);
+        }
+
+        string per = (ratioOfHealth * 100).ToString("F2") + "%";
+
+        if (percentage != null) percentage.DOText(per, 0.7f);
+
+    }
+
+    void DamageAnimation(float damagePoint)
+    {
+        BackGroundBar.color = DamageColor;
+        BackGroundBar.DOFillAmount(damagePoint, 1f).SetEase(Ease.InQuart);
+
+        if(RightFill != null)
+        {
             BackGroundBarRight.color = DamageColor;
-            BackGroundBarRight.DOFillAmount(ratioOfHealth, 1f).SetEase(Ease.InQuart);
+            BackGroundBarRight.DOFillAmount(damagePoint, 1f).SetEase(Ease.InQuart);
         }
 
         if (animatedBorder != null)
@@ -63,11 +85,11 @@ public class HealthBar : MonoBehaviour
             Sequence sequence = DOTween.Sequence();
 
             sequence.Append(
-                animatedBorder.rectTransform.DOPunchScale(new Vector3(1.2f,1.2f),0.2f)
+                animatedBorder.rectTransform.DOPunchScale(new Vector3(1.2f, 1.2f), 0.2f)
             );
 
             sequence.Join(
-                animatedBorder.DOFade(1f, 0.2f).SetEase(Ease.InFlash).SetLoops(3)
+                animatedBorder.DOColor(DamageBorder, 0.2f).SetEase(Ease.InFlash).SetLoops(3)
             );
 
             sequence.Join(
@@ -75,15 +97,29 @@ public class HealthBar : MonoBehaviour
             );
 
             sequence.Play().OnComplete(() => {
-                animatedBorder.color = ABEndColor;
+                animatedBorder.color = Color.clear;
                 animatedBorder.rectTransform.localScale = Vector3.one;
                 this.rectTransform = rectBuff;
             });
         }
+    }
 
-        string per = (ratioOfHealth * 100).ToString("F2") + "%";
+    void UseLPAnimation(float usePoint)
+    {
+        BackGroundBar.color = UseLPColor;
+        BackGroundBar.DOFillAmount(usePoint, 1f).SetEase(Ease.InQuart);
 
-        if (percentage != null) percentage.DOText(per, 0.7f);
+        if (RightFill != null)
+        {
+            BackGroundBarRight.color = UseLPColor;
+            BackGroundBarRight.DOFillAmount(usePoint, 1f).SetEase(Ease.InQuart);
+        }
 
+        if(animatedBorder != null)
+        {
+            animatedBorder.DOColor(UseLPBorder, 0.2f).SetEase(Ease.InFlash).SetLoops(3).OnComplete(() => {
+                animatedBorder.color = Color.clear;
+            });
+        }
     }
 }

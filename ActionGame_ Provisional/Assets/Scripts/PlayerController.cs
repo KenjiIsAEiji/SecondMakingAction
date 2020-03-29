@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour
         else if(NowPlayerState != PlayerState.KickBack)
         {
             PlayerCurrentLP -= damage;
-            healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP);
+            healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP,true);
         }
 
         if (PlayerCurrentLP <= PlayerMaxLP / 3)
@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour
     public void UsingLP(float usePoint)
     {
         PlayerCurrentLP -= usePoint;
-        healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP);
+        healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP,false);
     }
 
     /// <summary>
