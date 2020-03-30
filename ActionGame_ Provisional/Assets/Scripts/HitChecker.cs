@@ -14,6 +14,10 @@ public class HitChecker : MonoBehaviour
     [Header("モーションスケール参照用")]
     [SerializeField] CharacterAnimation characterAnimation;
 
+    [Header("LP参照用")]
+    [SerializeField] PlayerController playerController;
+    [SerializeField] float usePlayerPL = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +52,8 @@ public class HitChecker : MonoBehaviour
             collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue,characterAnimation.NowMotionScale);
 
             Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+
+            HitLPUse(usePlayerPL);
         }
         else if (collision.gameObject.CompareTag("MidleEnemy"))
         {
@@ -55,6 +61,13 @@ public class HitChecker : MonoBehaviour
 
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
             Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
+
+            HitLPUse(usePlayerPL);
         }
+    }
+
+    void HitLPUse(float useLP)
+    {
+        playerController.UsingLP(useLP);
     }
 }

@@ -2823,7 +2823,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2338
+  m_Name: pb_Mesh-2170
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5326,10 +5326,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 298339352, guid: 36f16e543b8456744866b9de5370f581, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.4911
-      objectReference: {fileID: 0}
     - target: {fileID: 298339355, guid: 36f16e543b8456744866b9de5370f581, type: 3}
       propertyPath: m_Mesh
       value: 

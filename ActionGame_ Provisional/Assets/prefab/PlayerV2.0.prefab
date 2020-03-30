@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 298339351}
   m_LocalRotation: {x: -0, y: 0.49932158, z: -0, w: -0.86641675}
   m_LocalPosition: {x: 0, y: 0.878, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.4911, z: 1}
   m_Children: []
   m_Father: {fileID: 8268210622069270005}
   m_RootOrder: 7
@@ -2895,6 +2895,8 @@ MonoBehaviour:
   effect: {fileID: 2020732748657587891, guid: c1d91138d81816a448c6f0f3d5361805, type: 3}
   AttackValue: 10
   characterAnimation: {fileID: 4018373119038278645}
+  playerController: {fileID: 4018373119038278646}
+  usePlayerPL: 1
 --- !u!1 &4018373118385092340
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,7 +3351,7 @@ MonoBehaviour:
   PlayerMaxLP: 400
   PlayerCurrentLP: 0
   healthBar: {fileID: 0}
-  kickBackStrength: 26.8
+  kickBackStrength: 27
   effect: {fileID: 0}
   AttackJump: 15
   ShieldModel: {fileID: 298339351}
