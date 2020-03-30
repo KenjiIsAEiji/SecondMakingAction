@@ -15,6 +15,7 @@ public class CharacterAnimation : MonoBehaviour
     [Header("遠距離攻撃")]
     [SerializeField] GameObject SlashPrefab;
     [SerializeField] float SlashSpeed = 20f;
+    [SerializeField] float SlashUseLP = 10f;
 
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
@@ -101,6 +102,8 @@ public class CharacterAnimation : MonoBehaviour
         {
             GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
             SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed,ForceMode.Impulse);
+
+            playerController.UsingLP(SlashUseLP);
 
             Destroy(SlashObj, 5f);
         }
