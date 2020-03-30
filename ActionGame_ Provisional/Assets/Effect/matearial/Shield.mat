@@ -26,11 +26,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_ED238FDD: 1
+    - ClipingValue: 0
+    - Vector1_7FDBBB06: 3
     - Vector1_BC27B45A: 1.83
     - Vector1_C23A0628: 0.51
     - Vector1_D47741AC: 0.2
+    - Vector1_FD5C6353: 0
+    - _ClipingValue: 0
     m_Colors:
-    - Color_84DEFD06: {r: 0, g: 1.0157067, b: 1.9999998, a: 0}
+    - Color_84DEFD06: {r: 0, g: 0.5568628, b: 0.99607843, a: 1}
 --- !u!114 &5749001283231996073
 MonoBehaviour:
   m_ObjectHideFlags: 11

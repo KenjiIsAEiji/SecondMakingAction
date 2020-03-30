@@ -135,6 +135,8 @@ public class PlayerController : MonoBehaviour
                 {
                     UsingLP(ShieldCreate);
                     ShieldCurrentHealth = MaxShieldHealth;
+
+                    ShieldModel.GetComponent<Renderer>().material.SetFloat("_ClipingValue", 0);
                 }
 
                 if (!Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.NomalFight;
@@ -229,6 +231,8 @@ public class PlayerController : MonoBehaviour
         if (NowPlayerState == PlayerState.Shield && ShieldCurrentHealth > 0.0f)
         {
             ShieldCurrentHealth -= damage;
+            ShieldModel.GetComponent<Renderer>().material.SetFloat("_ClipingValue", 1 - (ShieldCurrentHealth / MaxShieldHealth));
+
             if (ShieldCurrentHealth <= 0.0f) ShieldBreak = true;
         }
         else if(NowPlayerState != PlayerState.KickBack)
