@@ -69,6 +69,8 @@ public class PlayerController : MonoBehaviour
         NowPlayerState = PlayerState.NomalFight;
         PlayerCurrentLP = PlayerMaxLP;
         ShieldCurrentHealth = 0;
+
+        effect.DeadEffect(0);
     }
 
     // Update is called once per frame
@@ -161,6 +163,8 @@ public class PlayerController : MonoBehaviour
 
                 playerRigidbody.isKinematic = true;
                 this.GetComponent<Collider>().enabled = false;
+
+                effect.DeadEffect(1);
 
                 break;
         }
@@ -261,6 +265,8 @@ public class PlayerController : MonoBehaviour
             if(PlayerCurrentLP <= 0)
             {
                 NowPlayerState = PlayerState.Dead;
+                PlayerCurrentLP = 0;
+                healthBar.SetNowHealth(0, true);
             }
             else if (PlayerCurrentLP <= PlayerMaxLP / 3)
             {

@@ -10,6 +10,7 @@ public class CamEffect : MonoBehaviour
 
     [SerializeField] Volume DamageEffectVol;
     [SerializeField] Volume KickBackEffectVol;
+    [SerializeField] Volume DeadEffectVol;
     
     // Start is called before the first frame update
     void Start()
@@ -27,5 +28,12 @@ public class CamEffect : MonoBehaviour
         impulseSource.GenerateImpulse();
         DamageEffectVol.weight = weight;
         KickBackEffectVol.weight = weight;
+    }
+
+    public void DeadEffect(float weight)
+    {
+        DamageEffectVol.weight = weight;
+        KickBackEffectVol.weight = weight;
+        DeadEffectVol.weight = weight;
     }
 }
