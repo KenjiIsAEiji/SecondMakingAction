@@ -101,6 +101,8 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.Shield;
 
+                if (PlayerCurrentLP <= 0f) NowPlayerState = PlayerState.Dead;
+
                 break;
 
             case PlayerState.LongRange:
@@ -120,10 +122,11 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.Shield;
 
+                if (PlayerCurrentLP <= 0f) NowPlayerState = PlayerState.Dead;
+
                 break;
 
             case PlayerState.KickBack:
-                ShieldBreak = false;
                 PlayerMove(Vector3.zero);
 
                 break;
@@ -133,17 +136,32 @@ public class PlayerController : MonoBehaviour
 
                 if(ShieldCurrentHealth <= 0 && !ShieldBreak)
                 {
-                    UsingLP(ShieldCreate);
-                    ShieldCurrentHealth = MaxShieldHealth;
+                    if(PlayerCurrentLP > ShieldCreate)
+                    {
+                        UsingLP(ShieldCreate);
+                        ShieldCurrentHealth = MaxShieldHealth;
 
-                    ShieldModel.GetComponent<Renderer>().material.SetFloat("_ClipingValue", 0);
+                        ShieldModel.GetComponent<Renderer>().material.SetFloat("_ClipingValue", 0);
+                    }
+                    else
+                    {
+                        Debug.Log("PLが足りません");
+                    }
                 }
 
                 if (!Input.GetKey(KeyCode.Space)) NowPlayerState = PlayerState.NomalFight;
 
+                if (PlayerCurrentLP <= 0f) NowPlayerState = PlayerState.Dead;
+
                 break;
 
             case PlayerState.Dead:
+
+                PlayerMove(Vector3.zero);
+
+                playerRigidbody.isKinematic = true;
+                this.GetComponent<Collider>().enabled = false;
+
                 break;
         }
 
@@ -239,16 +257,20 @@ public class PlayerController : MonoBehaviour
         {
             PlayerCurrentLP -= damage;
             healthBar.SetNowHealth(PlayerCurrentLP / PlayerMaxLP,true);
-        }
 
-        if (PlayerCurrentLP <= PlayerMaxLP / 3)
-        {
-            kickBackDrection = AttackForce;
-            StartCoroutine(KickBackTimer(0.5f));
-        }
-        else
-        {
-            StartCoroutine(DamageEffect(0.5f));
+            if(PlayerCurrentLP <= 0)
+            {
+                NowPlayerState = PlayerState.Dead;
+            }
+            else if (PlayerCurrentLP <= PlayerMaxLP / 3)
+            {
+                kickBackDrection = AttackForce;
+                StartCoroutine(KickBackTimer(0.5f));
+            }
+            else
+            {
+                StartCoroutine(DamageEffect(0.5f));
+            }
         }
     }
 

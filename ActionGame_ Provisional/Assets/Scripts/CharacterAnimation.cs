@@ -100,12 +100,17 @@ public class CharacterAnimation : MonoBehaviour
 
         if(animator.GetCurrentAnimatorStateInfo(0).IsTag("LongRangeMode"))
         {
-            GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
-            SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed,ForceMode.Impulse);
-
-            playerController.UsingLP(SlashUseLP);
-
-            Destroy(SlashObj, 5f);
+            if (playerController.PlayerCurrentLP > SlashUseLP)
+            {
+                GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
+                SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed, ForceMode.Impulse);
+                Destroy(SlashObj, 5f);
+                playerController.UsingLP(SlashUseLP);
+            }
+            else
+            {
+                Debug.Log("LPが足りません");
+            }
         }
         else
         {

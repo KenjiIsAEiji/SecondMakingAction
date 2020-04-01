@@ -4298,11 +4298,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Midle enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 972581231409735262, guid: faa4fd9ae5ab5d841a816ebe9fdf6e12,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa4fd9ae5ab5d841a816ebe9fdf6e12, type: 3}
 --- !u!224 &1333505697 stripped
@@ -5326,6 +5321,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 298339351, guid: 36f16e543b8456744866b9de5370f581, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 298339355, guid: 36f16e543b8456744866b9de5370f581, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5345,6 +5344,11 @@ PrefabInstance:
       propertyPath: effect
       value: 
       objectReference: {fileID: 1833892507}
+    - target: {fileID: 4018373119038278646, guid: 36f16e543b8456744866b9de5370f581,
+        type: 3}
+      propertyPath: PlayerMaxLP
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4964598576003553254, guid: 36f16e543b8456744866b9de5370f581,
         type: 3}
       propertyPath: m_Name
