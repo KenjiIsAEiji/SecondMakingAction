@@ -50,7 +50,7 @@ public class HitChecker : MonoBehaviour
         {
             float LPRaito;
 
-            if(playerController.PlayerCurrentLP < playerController.PlayerMaxLP / 3)
+            if(playerController.PlayerCurrentLP < playerController.PlayerMaxLP / 4)
             {
                 LPRaito = LowLPRaito;
             }

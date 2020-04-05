@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     [Header("シールド展開時")]
     [SerializeField] GameObject ShieldModel;
     [SerializeField] float MaxShieldHealth = 100;
-    [SerializeField] float ShieldCurrentHealth;
+    public float ShieldCurrentHealth;
     [SerializeField] float ShieldCreate = 50;
     [SerializeField] bool ShieldBreak = false;
 
@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
                 PlayerCurrentLP = 0;
                 healthBar.SetNowHealth(0, true);
             }
-            else if (PlayerCurrentLP <= PlayerMaxLP / 3)
+            else if (PlayerCurrentLP <= PlayerMaxLP / 4)
             {
                 kickBackDrection = AttackForce;
                 StartCoroutine(KickBackTimer(0.5f));
