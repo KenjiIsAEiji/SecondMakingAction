@@ -149,10 +149,10 @@ public class EnemyMidleController : MonoBehaviour
             else
             {
                 //StartCoroutine(HitStopEffect(HS_BaceTime * Mathf.Pow(damegeScale, 2)));
-                StartCoroutine(NoDamageTimer());
+                StartCoroutine(NoDamageTimer(damegeScale));
                 NowEnemyState = EnemyState.KickBack;
             }
-            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth);
+            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth,true);
         }
     }
     void KickBackMove()
@@ -161,11 +161,11 @@ public class EnemyMidleController : MonoBehaviour
         EnemyAgent.velocity = PlayerTransform.forward * KickBackForce;
     }
 
-    IEnumerator NoDamageTimer()
+    IEnumerator NoDamageTimer(float scale)
     {
         KickBackMove();
 
-        yield return new WaitForSecondsRealtime(KickBackTime);
+        yield return new WaitForSecondsRealtime(KickBackTime * scale);
 
         NowEnemyState = EnemyState.Move;
     }

@@ -15,6 +15,7 @@ public class CharacterAnimation : MonoBehaviour
     [Header("遠距離攻撃")]
     [SerializeField] GameObject SlashPrefab;
     [SerializeField] float SlashSpeed = 20f;
+    [SerializeField] float SlashUseLP = 10f;
 
     [Header("剣のコライダー")]
     [SerializeField] Collider swordCollider;
@@ -59,8 +60,18 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetFloat("SpeedX", 0);
         }
 
-        animator.SetBool("LightAttack", Input.GetMouseButton(0));
-        animator.SetBool("HeavyAttack", Input.GetMouseButton(1));
+        if (Input.GetKey(KeyCode.Space))
+        {
+            animator.SetLayerWeight(animator.GetLayerIndex("Shild Layer"), 1);
+            animator.SetBool("LightAttack", false);
+            animator.SetBool("HeavyAttack", false);
+        }
+        else
+        {
+            animator.SetLayerWeight(animator.GetLayerIndex("Shild Layer"), 0);
+            animator.SetBool("LightAttack", Input.GetMouseButton(0));
+            animator.SetBool("HeavyAttack", Input.GetMouseButton(1));
+        }
 
         //if (Input.GetMouseButtonDown(0) && playerController.MoveVecter.magnitude > 1f)
         //{
@@ -89,10 +100,17 @@ public class CharacterAnimation : MonoBehaviour
 
         if(animator.GetCurrentAnimatorStateInfo(0).IsTag("LongRangeMode"))
         {
-            GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
-            SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed,ForceMode.Impulse);
-
-            Destroy(SlashObj, 5f);
+            if (playerController.PlayerCurrentLP > SlashUseLP)
+            {
+                GameObject SlashObj = Instantiate(SlashPrefab, SponeOrigin.position, Quaternion.LookRotation(transform.forward));
+                SlashObj.GetComponent<Rigidbody>().AddForce(transform.forward * SlashSpeed, ForceMode.Impulse);
+                Destroy(SlashObj, 5f);
+                playerController.UsingLP(SlashUseLP);
+            }
+            else
+            {
+                Debug.Log("LPが足りません");
+            }
         }
         else
         {

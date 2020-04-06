@@ -155,7 +155,7 @@ public class EnemyStateController : MonoBehaviour
                 StartCoroutine(NoDamageTimer(damegeScale));
                 NowEnemyState = EnemyState.KickBack;
             }
-            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth);
+            healthBar.SetNowHealth(EnemyCurrentHealth / EnemyMaxHealth,true);
         }
     }
 

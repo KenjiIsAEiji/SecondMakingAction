@@ -14,6 +14,11 @@ public class HitChecker : MonoBehaviour
     [Header("モーションスケール参照用")]
     [SerializeField] CharacterAnimation characterAnimation;
 
+    [Header("LP参照用")]
+    [SerializeField] PlayerController playerController;
+    [SerializeField] float usePlayerPL = 1;
+    float LowLPRaito = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,20 +46,30 @@ public class HitChecker : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("MidleEnemy"))
         {
+            float LPRaito;
+
+            if(playerController.PlayerCurrentLP < playerController.PlayerMaxLP / 4)
+            {
+                LPRaito = LowLPRaito;
+            }
+            else
+            {
+                HitLPUse(usePlayerPL);
+                LPRaito = 1f;
+            }
+
+            if(collision.gameObject.CompareTag("Enemy")) collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue, characterAnimation.NowMotionScale * LPRaito);
+            else collision.gameObject.GetComponent<EnemyMidleController>().Damage(AttackValue, characterAnimation.NowMotionScale * LPRaito);
+
             Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
-
-            collision.gameObject.GetComponent<EnemyStateController>().Damage(AttackValue,characterAnimation.NowMotionScale);
-
             Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
         }
-        else if (collision.gameObject.CompareTag("MidleEnemy"))
-        {
-            collision.gameObject.GetComponent<EnemyMidleController>().Damage(AttackValue, characterAnimation.NowMotionScale);
+    }
 
-            Quaternion effectSponeAngle = Quaternion.FromToRotation(Vector3.forward, collision.contacts[0].normal);
-            Instantiate(effect, collision.contacts[0].point, effectSponeAngle);
-        }
+    void HitLPUse(float useLP)
+    {
+        playerController.UsingLP(useLP);
     }
 }

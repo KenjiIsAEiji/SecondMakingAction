@@ -342,8 +342,13 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 8139310067305049154}
+  BackGroundBar: {fileID: 0}
+  DamageColor: {r: 0.7225561, g: 0, b: 1, a: 1}
+  UseLPColor: {r: 0, g: 0.60784316, b: 0, a: 1}
   RightFill: {fileID: 0}
-  endColor: {r: 1, g: 0, b: 0, a: 0}
+  BackGroundBarRight: {fileID: 0}
+  DamageBorder: {r: 1, g: 0, b: 0, a: 1}
+  UseLPBorder: {r: 0, g: 0.60784316, b: 0, a: 1}
   animatedBorder: {fileID: 2094803983946236313}
   percentage: {fileID: 0}
 --- !u!1 &6033250668292389097
@@ -604,9 +609,9 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -198, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -814, y: -217}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &8139310066614366897
