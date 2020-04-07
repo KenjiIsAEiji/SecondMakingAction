@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     enum GameState
     {
@@ -12,11 +12,6 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] GameState gameState;
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     // Start is called before the first frame update
     private void Start()

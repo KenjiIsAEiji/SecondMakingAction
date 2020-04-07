@@ -1,8 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : ModeBehaviour
+public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [SerializeField]
+    private bool dontDestroyOnLoad = false;
     private static T instance;
     public static T Instance
     {
@@ -25,23 +27,22 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : ModeBe
 
     virtual protected void Awake()
     {
-        // 他のゲームオブジェクトにアタッチされているか調べる
-        // アタッチされている場合は破棄する。
-        CheckInstance();
-    }
+        // 他のGameObjectにアタッチされているか調べる.
+        // アタッチされている場合は破棄する.
+        if (this != Instance)
+        {
+            Destroy(this);
+            //Destroy(this.gameObject);
+            Debug.LogError(
+                typeof(T) +
+                " は既に他のGameObjectにアタッチされているため、コンポーネントを破棄しました." +
+                " アタッチされているGameObjectは " + Instance.gameObject.name + " です.");
+            return;
+        }
 
-    protected bool CheckInstance()
-    {
-        if (instance == null)
+        if (dontDestroyOnLoad)
         {
-            instance = this as T;
-            return true;
+            DontDestroyOnLoad(this.gameObject);
         }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(this);
-        return false;
     }
 }
