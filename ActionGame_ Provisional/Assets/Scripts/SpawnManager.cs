@@ -41,10 +41,16 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
 
     public void Spawn()
     {
-        int index = Random.Range(0, SpawnPosionList.Count);
+        int pointIndex = Random.Range(0, SpawnPosionList.Count);
 
-        Debug.Log("Spawning point = " + index + " " + spawnDatas[0].SpawnEnemys + "Enenys");
+        for(int i = 0; i < spawnDatas[0].SpawnEnemys; i++)
+        {
+            int spownIndex = SpawnPosionList.Count - (pointIndex + i);
 
-        Enemys.Add(Instantiate(NormalEnemy, SpawnPosionList[index].position, SpawnPosionList[index].rotation));
+            Enemys.Add(Instantiate(NormalEnemy, SpawnPosionList[spownIndex].position, SpawnPosionList[spownIndex].rotation));
+            Debug.Log("Spawning point = " + spownIndex);
+        }
+
+        Debug.Break();
     }
 }
