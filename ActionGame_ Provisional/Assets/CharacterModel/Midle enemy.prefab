@@ -415,9 +415,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: robot_midle
       objectReference: {fileID: 0}
+    - target: {fileID: -243320773602546439, guid: 3166b3f97c726e641a9e4bd7c64b3189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2673395788431998743, guid: 3166b3f97c726e641a9e4bd7c64b3189,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2721546324538567844, guid: 3166b3f97c726e641a9e4bd7c64b3189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775550052059115417, guid: 3166b3f97c726e641a9e4bd7c64b3189,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9210300138427983618, guid: 3166b3f97c726e641a9e4bd7c64b3189,
