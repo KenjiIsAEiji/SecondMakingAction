@@ -13,21 +13,15 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
     [Header("スポーンデータ")]
     [SerializeField] List<SpawnData> spawnDatas;
 
-    public enum SponeType
-    {
-        Single,
-        Multi
-    }
-
     private void Start()
     {
         Spawn();
     }
 
-    //private void Update()
-    //{
-    //    Debug.Log("enemys : " + Enemys.Count);
-    //}
+    private void Update()
+    {
+        Debug.Log("enemys : " + Enemys.Count);
+    }
 
     private void OnDrawGizmos()
     {
@@ -42,15 +36,44 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
     public void Spawn()
     {
         int pointIndex = Random.Range(0, SpawnPosionList.Count);
+        int N_enemys = 0, L_enemys = 0;
 
-        for(int i = 0; i < spawnDatas[0].SpawnEnemys; i++)
-        {
-            int spownIndex = SpawnPosionList.Count - (pointIndex + i);
-
-            Enemys.Add(Instantiate(NormalEnemy, SpawnPosionList[spownIndex].position, SpawnPosionList[spownIndex].rotation));
-            Debug.Log("Spawning point = " + spownIndex);
+        if ((spawnDatas[0].NomalEnemys + spawnDatas[0].LongRangeEnemys) > SpawnPosionList.Count) 
+        { 
+            Debug.LogError("出現位置（SpawnPoint）の数が足りません!");
+            Debug.LogError("敵の合計数を" + SpawnPosionList.Count + "以下にしてください");
+            return;
         }
 
-        Debug.Break();
+        for (int i = 1; i <= (spawnDatas[0].NomalEnemys + spawnDatas[0].LongRangeEnemys); i++)
+        {
+            int spawnIndex = (pointIndex + i) < SpawnPosionList.Count ? (pointIndex + i) : (pointIndex + i) - SpawnPosionList.Count;
+
+            if (N_enemys < spawnDatas[0].NomalEnemys && L_enemys < spawnDatas[0].LongRangeEnemys)
+            {
+                int nomalFlag = Random.Range(0, 2);
+
+                if (nomalFlag == 1)
+                {
+                    Enemys.Add(Instantiate(NormalEnemy, SpawnPosionList[spawnIndex].position, SpawnPosionList[spawnIndex].rotation));
+                    N_enemys++;
+                }
+                else
+                {
+                    Enemys.Add(Instantiate(LongRangeEnemy, SpawnPosionList[spawnIndex].position, SpawnPosionList[spawnIndex].rotation));
+                    L_enemys++;
+                }
+            }
+            else if (N_enemys >= spawnDatas[0].NomalEnemys && L_enemys < spawnDatas[0].LongRangeEnemys)
+            {
+                Enemys.Add(Instantiate(LongRangeEnemy, SpawnPosionList[spawnIndex].position, SpawnPosionList[spawnIndex].rotation));
+                L_enemys++;
+            }
+            else if (N_enemys < spawnDatas[0].NomalEnemys && L_enemys >= spawnDatas[0].LongRangeEnemys)
+            {
+                Enemys.Add(Instantiate(NormalEnemy, SpawnPosionList[spawnIndex].position, SpawnPosionList[spawnIndex].rotation));
+                N_enemys++;
+            }
+        }
     }
 }

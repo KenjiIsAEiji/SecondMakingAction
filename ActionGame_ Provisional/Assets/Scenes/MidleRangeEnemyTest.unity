@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh37194
+  m_Name: pb_Mesh31412
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -290,7 +290,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh37254
+  m_Name: pb_Mesh31472
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3572,7 +3572,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh37226
+  m_Name: pb_Mesh31444
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4593,37 +4593,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SpawnController
-      objectReference: {fileID: 0}
-    - target: {fileID: 1534505018368451941, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23,
-        type: 3}
-      propertyPath: spawnDatas.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1534505018368451941, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23,
-        type: 3}
-      propertyPath: spawnDatas.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 47b9ebdf387dc53428f152054f2f6d04,
-        type: 2}
-    - target: {fileID: 1534505018420834076, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 1534505018420834076, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -19.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 1534505019359202307, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -18.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1534505019599839887, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -19.32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e1ddf5e8e02ac34bba4b2b9f99e9d23, type: 3}

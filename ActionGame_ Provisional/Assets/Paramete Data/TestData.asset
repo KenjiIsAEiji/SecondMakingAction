@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TestData
   m_EditorClassIdentifier: 
   DataName: TestWave
-  SpawnEnemyType: 0
-  SpawnEnemys: 2
+  NomalEnemys: 3
+  LongRangeEnemys: 1

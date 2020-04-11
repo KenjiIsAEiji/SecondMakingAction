@@ -5,14 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Data",menuName ="SpawnData")]
 public class SpawnData : ScriptableObject
 {
-    public enum EnemyType
-    {
-        nomal,
-        longRange
-    }
     
     [SerializeField] string DataName;
-    public EnemyType SpawnEnemyType = EnemyType.nomal;
-    public int SpawnEnemys = 0;
+    [Header("通常の敵出現数")]
+    public int NomalEnemys = 0;
+    [Header("遠距離タイプの敵出現数")]
+    public int LongRangeEnemys = 0;
 
 }
