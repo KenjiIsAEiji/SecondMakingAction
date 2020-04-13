@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    enum GameState
+    public enum GameState
     {
         Ready,
         Play,
@@ -37,5 +37,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
 
         }
+    }
+    
+    /// <summary>
+    /// Change now gameState
+    /// </summary>
+    /// <param name="state">To State</param>
+    public void SetGameState(GameState state)
+    {
+        GameState beforeState = gameState;
+        gameState = state;
+
+        Debug.Log("Change game state from:" + beforeState + " To:" + gameState);
     }
 }

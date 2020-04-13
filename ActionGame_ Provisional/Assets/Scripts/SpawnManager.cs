@@ -12,15 +12,33 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
 
     [Header("スポーンデータ")]
     [SerializeField] List<SpawnData> spawnDatas;
+    [SerializeField] int Waves = 0;
 
     private void Start()
     {
-        Spawn();
+        Spawn(spawnDatas[0]);
+        Waves++;
+
+        GameManager.Instance.SetGameState(GameManager.GameState.Play);
     }
 
     private void Update()
     {
         Debug.Log("enemys : " + Enemys.Count);
+        if(Enemys.Count <= 0 && Waves > 0)
+        {
+            if(spawnDatas.Count > Waves)
+            {
+                Spawn(spawnDatas[Waves]);
+                Waves++;
+            }
+            else
+            {
+                Debug.Log("ALL WAVE CLEAR");
+                GameManager.Instance.SetGameState(GameManager.GameState.End);
+                Waves = 0;
+            }
+        }
     }
 
     private void OnDrawGizmos()
@@ -33,23 +51,23 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
         }
     }
 
-    public void Spawn()
+    public void Spawn(SpawnData spawnData)
     {
         int pointIndex = Random.Range(0, SpawnPosionList.Count);
         int N_enemys = 0, L_enemys = 0;
 
-        if ((spawnDatas[0].NomalEnemys + spawnDatas[0].LongRangeEnemys) > SpawnPosionList.Count) 
+        if ((spawnData.NomalEnemys + spawnData.LongRangeEnemys) > SpawnPosionList.Count) 
         { 
             Debug.LogError("出現位置（SpawnPoint）の数が足りません!");
             Debug.LogError("敵の合計数を" + SpawnPosionList.Count + "以下にしてください");
             return;
         }
 
-        for (int i = 1; i <= (spawnDatas[0].NomalEnemys + spawnDatas[0].LongRangeEnemys); i++)
+        for (int i = 1; i <= (spawnData.NomalEnemys + spawnData.LongRangeEnemys); i++)
         {
             int spawnIndex = (pointIndex + i) < SpawnPosionList.Count ? (pointIndex + i) : (pointIndex + i) - SpawnPosionList.Count;
 
-            if (N_enemys < spawnDatas[0].NomalEnemys && L_enemys < spawnDatas[0].LongRangeEnemys)
+            if (N_enemys < spawnData.NomalEnemys && L_enemys < spawnData.LongRangeEnemys)
             {
                 int nomalFlag = Random.Range(0, 2);
 
@@ -64,12 +82,12 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
                     L_enemys++;
                 }
             }
-            else if (N_enemys >= spawnDatas[0].NomalEnemys && L_enemys < spawnDatas[0].LongRangeEnemys)
+            else if (N_enemys >= spawnData.NomalEnemys && L_enemys < spawnData.LongRangeEnemys)
             {
                 Enemys.Add(Instantiate(LongRangeEnemy, SpawnPosionList[spawnIndex].position, SpawnPosionList[spawnIndex].rotation));
                 L_enemys++;
             }
-            else if (N_enemys < spawnDatas[0].NomalEnemys && L_enemys >= spawnDatas[0].LongRangeEnemys)
+            else if (N_enemys < spawnData.NomalEnemys && L_enemys >= spawnData.LongRangeEnemys)
             {
                 Enemys.Add(Instantiate(NormalEnemy, SpawnPosionList[spawnIndex].position, SpawnPosionList[spawnIndex].rotation));
                 N_enemys++;
