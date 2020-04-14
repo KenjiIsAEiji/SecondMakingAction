@@ -13,6 +13,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     [SerializeField] GameState gameState;
 
+    [Header("スコアデータ")]
+    public int nomalEnemyDestroy = 0;
+    public int longRangeEnemyDestroy = 0;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -42,7 +46,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// <summary>
     /// Change now gameState
     /// </summary>
-    /// <param name="state">To State</param>
+    /// <param name="state">Change to State</param>
     public void SetGameState(GameState state)
     {
         GameState beforeState = gameState;

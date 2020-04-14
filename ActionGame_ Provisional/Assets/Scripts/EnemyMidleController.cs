@@ -145,7 +145,7 @@ public class EnemyMidleController : MonoBehaviour
                 EnemyCurrentHealth = 0;
                 StartCoroutine(DeadAction(1f));
 
-                SpawnManager.Instance.Enemys.Remove(this.gameObject);
+                SpawnManager.Instance.DestroyEnemy(this.gameObject);
                 NowEnemyState = EnemyState.Dead;
             }
             else

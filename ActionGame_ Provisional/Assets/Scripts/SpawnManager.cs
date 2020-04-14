@@ -94,4 +94,18 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
             }
         }
     }
+
+    public void DestroyEnemy(GameObject enemyObj)
+    {
+        if (enemyObj.CompareTag("Enemy"))
+        {
+            GameManager.Instance.nomalEnemyDestroy++;
+        }
+        else
+        {
+            GameManager.Instance.longRangeEnemyDestroy++;
+        }
+
+        Enemys.Remove(enemyObj);
+    }
 }
