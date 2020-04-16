@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
@@ -21,11 +22,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int longRangeEnemyDestroys = 0;
     public float fightTime = 0;
 
+    [Header("スコア参照用")]
+    public int NomalDestroyPoints;
+    public int LongRangeDestroyPoints;
+    public int LPRemaingPoints;
+    public int PassingTimePoints;
+
+
     [Header("スコア基底ポイント")]
-    [SerializeField] int nomalPoint = 10;
-    [SerializeField] int LongRangePoint = 15;
-    [SerializeField] int LPRemaingPoint = 1000;
-    [SerializeField] int PassingTimePoint = 5000;
+    [SerializeField] ScoreManagementData scoreManagement;
+
+    [Header("Clear画面")]
+    [SerializeField] GameObject ClearUIObject;
 
     /// <summary>
     /// スコア算出メモ
@@ -60,15 +68,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
 
             case GameState.End:
-                int NomalDestroyPoints = nomalEnemyDestroys * nomalPoint;
-                int LongRangeDestroyPoints = longRangeEnemyDestroys * LongRangePoint;
-                int LPRemaingPoints = (int)(LPRemaingPoint * player.GetPlayerLPRatio());
-                int PassingTimePoints = (int)(PassingTimePoint / fightTime);
+                NomalDestroyPoints = nomalEnemyDestroys * scoreManagement.BaseNomalPoint;
+                LongRangeDestroyPoints = longRangeEnemyDestroys * scoreManagement.BaseLongRangePoint;
+                LPRemaingPoints = (int)(scoreManagement.BaseLPRemaingPoint * player.GetPlayerLPRatio());
+                PassingTimePoints = (int)(scoreManagement.BasePassingTimePoint / fightTime);
 
-                int Score = NomalDestroyPoints + LongRangeDestroyPoints + LPRemaingPoints + PassingTimePoints;
-
-                Debug.Log("<color=#0000ffff>score " + Score + "</color>");
-
+                ClearUIObject.SetActive(true);
                 break;
 
         }
