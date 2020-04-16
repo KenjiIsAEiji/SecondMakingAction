@@ -1227,6 +1227,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   gameState: 0
+  player: {fileID: 4018373118768581369}
+  nomalEnemyDestroys: 0
+  longRangeEnemyDestroys: 0
+  fightTime: 0
+  nomalPoint: 10
+  LongRangePoint: 15
+  LPRemaingPoint: 1000
+  PassingTimePoint: 8000
 --- !u!1 &1457494610
 GameObject:
   m_ObjectHideFlags: 0
@@ -2989,3 +2997,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36f16e543b8456744866b9de5370f581, type: 3}
+--- !u!114 &4018373118768581369 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4018373119038278646, guid: 36f16e543b8456744866b9de5370f581,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018373118768581368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbe732bd1e2de045886fec924d20209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

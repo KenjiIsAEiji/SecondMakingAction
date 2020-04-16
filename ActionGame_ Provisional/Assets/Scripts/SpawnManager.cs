@@ -99,11 +99,11 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
     {
         if (enemyObj.CompareTag("Enemy"))
         {
-            GameManager.Instance.nomalEnemyDestroy++;
+            GameManager.Instance.nomalEnemyDestroys++;
         }
         else
         {
-            GameManager.Instance.longRangeEnemyDestroy++;
+            GameManager.Instance.longRangeEnemyDestroys++;
         }
 
         Enemys.Remove(enemyObj);

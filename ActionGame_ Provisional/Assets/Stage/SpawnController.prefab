@@ -91,6 +91,7 @@ MonoBehaviour:
   spawnDatas:
   - {fileID: 11400000, guid: 47b9ebdf387dc53428f152054f2f6d04, type: 2}
   - {fileID: 11400000, guid: 4c96067de7f6cbd40bb75d305a2c52cf, type: 2}
+  - {fileID: 11400000, guid: c3af2e49ac4f24f47afb4e70fa509050, type: 2}
   Waves: 0
 --- !u!1 &1534505018420834077
 GameObject:
