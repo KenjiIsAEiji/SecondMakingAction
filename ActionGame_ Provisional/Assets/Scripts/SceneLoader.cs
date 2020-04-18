@@ -10,6 +10,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] int LoadSceneIndex = 1;
     [SerializeField] GameObject Door;
     [SerializeField] Image InteractProgressImg;
+    [SerializeField] Image KeyImage;
     [SerializeField] float interactTime;
     private float t = 0.0f;
 
@@ -22,6 +23,14 @@ public class SceneLoader : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (Input.GetKeyDown(KeyCode.F)) 
+            {
+                KeyImage.rectTransform.DOPunchScale(Vector3.one * 0.5f, 0.1f).OnComplete(() =>
+                {
+                    KeyImage.rectTransform.localScale = Vector3.one;
+                });
+            }
+
             if (Input.GetKey(KeyCode.F))
             {
                 t += Time.deltaTime;

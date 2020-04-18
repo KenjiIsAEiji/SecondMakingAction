@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
@@ -33,7 +32,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField] ScoreManagementData scoreManagement;
 
     [Header("Clear画面")]
-    [SerializeField] GameObject ClearUIObject;
+    [SerializeField] GameObject ClearUI;
+
 
     /// <summary>
     /// スコア算出メモ
@@ -73,10 +73,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 LPRemaingPoints = (int)(scoreManagement.BaseLPRemaingPoint * player.GetPlayerLPRatio());
                 PassingTimePoints = (int)(scoreManagement.BasePassingTimePoint / fightTime);
 
-                ClearUIObject.SetActive(true);
+                StartCoroutine(EndInterval(1f));
+                
                 break;
 
         }
+    }
+
+    IEnumerator EndInterval(float intervalTime)
+    {
+        yield return new WaitForSeconds(intervalTime);
+
+        ClearUI.SetActive(true);
     }
     
     /// <summary>

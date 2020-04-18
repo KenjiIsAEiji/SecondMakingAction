@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DataName: TestWave2
   NomalEnemys: 2
-  LongRangeEnemys: 1
+  LongRangeEnemys: 2

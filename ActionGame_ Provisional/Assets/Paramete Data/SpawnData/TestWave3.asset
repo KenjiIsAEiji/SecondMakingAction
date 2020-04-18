@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TestWave3
   m_EditorClassIdentifier: 
   DataName: TestWave3
-  NomalEnemys: 2
-  LongRangeEnemys: 2
+  NomalEnemys: 4
+  LongRangeEnemys: 0
