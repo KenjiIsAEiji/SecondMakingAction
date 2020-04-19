@@ -123,6 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791cfd8a8c315f84d9f54b6db2583004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackPower: 5
+  AttackPower: 2
   hitEffect: {fileID: 6578024271835331717, guid: 7e5d4830c8823d94db6c4b9f5baa38f3,
     type: 3}

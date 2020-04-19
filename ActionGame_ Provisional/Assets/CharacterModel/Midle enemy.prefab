@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f78c6314eda89041be4bf94bbb3a1bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyMaxHealth: 100
-  EnemyCurrentHealth: 100
+  EnemyMaxHealth: 25
+  EnemyCurrentHealth: 0
   HSScale: 0.1
   healthBar: {fileID: 4701463209569187640}
   enemyShotShell: {fileID: 1167683176}
@@ -217,8 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyShellPrefab: {fileID: 4311363459914350819, guid: 0230433fad2bd064695650d12a345af1,
     type: 3}
-  shotSpeed: 15
-  rate: 2
+  shotSpeed: 20
+  rate: 1
 --- !u!114 &4175775713153436028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyShellPrefab: {fileID: 4311363459914350819, guid: 0230433fad2bd064695650d12a345af1,
     type: 3}
-  shotSpeed: 15
-  rate: 2
+  shotSpeed: 20
+  rate: 1
 --- !u!114 &7459289564703326977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,9 +415,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: robot_midle
       objectReference: {fileID: 0}
+    - target: {fileID: -243320773602546439, guid: 3166b3f97c726e641a9e4bd7c64b3189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2673395788431998743, guid: 3166b3f97c726e641a9e4bd7c64b3189,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2721546324538567844, guid: 3166b3f97c726e641a9e4bd7c64b3189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775550052059115417, guid: 3166b3f97c726e641a9e4bd7c64b3189,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9210300138427983618, guid: 3166b3f97c726e641a9e4bd7c64b3189,

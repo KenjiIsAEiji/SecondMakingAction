@@ -31,6 +31,7 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        DOTween.SetTweensCapacity(tweenersCapacity: 1000, sequencesCapacity: 1000);
     }
     private void Start()
     {

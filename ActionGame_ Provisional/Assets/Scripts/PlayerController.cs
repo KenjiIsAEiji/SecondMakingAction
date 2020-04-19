@@ -248,8 +248,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="AttackForce"></param>
     public void Damage(float damage, Vector3 AttackForce)
     {
-        Debug.Log("player damage");
-        
         if (NowPlayerState == PlayerState.Shield && ShieldCurrentHealth > 0.0f)
         {
             ShieldCurrentHealth -= damage;
@@ -331,5 +329,10 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(-move,transform.up);
 
         playerRigidbody.AddForce(move * kickBackStrength,ForceMode.Impulse);
+    }
+
+    public float GetPlayerLPRatio()
+    {
+        return (PlayerCurrentLP / PlayerMaxLP);
     }
 }
